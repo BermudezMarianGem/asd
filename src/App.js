@@ -14,6 +14,8 @@ import EmptyProduct from './pages/EmptyProduct';
 import LandingPage from './pages/LandingPage';
 import SelectionPage from './pages/SelectionPage';
 import AccountPage from './pages/Account';
+import ViewAccount from './pages/ViewAccount';
+import TransactionPage from './pages/Transaction';
 //import LandingPage from './pages/LandingPage';
 axios.defaults.baseURL = "http://localhost:8000/";
 
@@ -31,6 +33,8 @@ function App() {
 
             <Route path="/homepage" component={Homepage} />
             <Route path="/account" component={AccountPage} />
+            <Route path="/accountview" component={ViewAccount} />
+            <Route path="/transaction" component={TransactionPage} />
             <Route path="/emptyproduct" component={EmptyProduct} />
             <Route path="/products" component={ViewProduct} />
             <Route path="/add-product" component={AddProduct} />
