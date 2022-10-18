@@ -1,9 +1,8 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function LandingPage() 
 {
-    const history = useHistory();
     return (
         <div>
             <div className='content'>
@@ -11,9 +10,7 @@ function LandingPage()
                 <div className='contentText'>
                     <p>Manage your shop efficiently on Agrikonnect with our AgriKonnect Farmer Center.</p>
                 </div>
-                <div className="form-group mb-3">
-                <button className="btn btn-primary" onClick={() => history.push('/add-product')}>Get Started</button>
-                </div>
+                <Link to={'/selectionpage'} className="btn btn-primary btn-sm float-start"> Get Started</Link>
             </div>
         </div>
         

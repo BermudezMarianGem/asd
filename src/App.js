@@ -11,6 +11,9 @@ import Homepage from './pages/HomePage';
 
 import axios from 'axios';
 import EmptyProduct from './pages/EmptyProduct';
+import LandingPage from './pages/LandingPage';
+import SelectionPage from './pages/SelectionPage';
+import AccountPage from './pages/Account';
 //import LandingPage from './pages/LandingPage';
 axios.defaults.baseURL = "http://localhost:8000/";
 
@@ -21,11 +24,13 @@ function App() {
 
           <Switch> 
             
-
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
+            <Route path="/landingpage" component={LandingPage} />
+            <Route path="/selectionpage" component={SelectionPage} />
+            <Route path="/register-seller" component={Register} />
+            <Route path="/login-seller" component={Login} />
 
             <Route path="/homepage" component={Homepage} />
+            <Route path="/account" component={AccountPage} />
             <Route path="/emptyproduct" component={EmptyProduct} />
             <Route path="/products" component={ViewProduct} />
             <Route path="/add-product" component={AddProduct} />

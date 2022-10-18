@@ -30,7 +30,7 @@ const Register = () => {
         
         result = await result.json()
         localStorage.setItem("user-info", JSON.stringify(result))
-        history.push("/login")
+        history.push("/login-seller")
     }
     return (
         <div className="col-sm-6 offset-sm-3">
@@ -44,7 +44,7 @@ const Register = () => {
            <input type="email" value={email}  onChange={(e)=>setEmail(e.target.value)} className="form-control" placeholder="Email" /><br/>
            <input type="password" value={password}  onChange={(e)=>setPassword(e.target.value)} className="form-control" placeholder="Password" /><br/>
            <button onClick = {signUp} className="btn btn-primary">Register</button>
-           <p>Already have an account?<Link to ="/login">Login here</Link></p>
+           <p>Already have an account?<Link to ="/login-seller">Login here</Link></p>
         </div>
     );
 

@@ -28,7 +28,7 @@ const Login = () =>
         }
         else
         {
-            history.push("/add-product")
+            history.push("/homepage")
         }
         
     }
@@ -42,7 +42,7 @@ const Login = () =>
                 <input type ="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}className="form-control"/><br/>
 
                 <button onClick={login}className="btn btn-primary">Login</button>
-                <p>Don't have account? <Link to ="/register">Register here</Link></p>
+                <p>Don't have account? <Link to ="/register-seller">Register here</Link></p>
             </div>
             
 
