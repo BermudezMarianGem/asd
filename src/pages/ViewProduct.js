@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+import Sidebar from './Sidebar';
 
 function ViewProduct() {
 
@@ -50,6 +51,7 @@ function ViewProduct() {
        
         product_HTMLTABLE = products.map( (item, index) => {
             return (
+            
                 <tr key={index}>
                     <td>{item.id}</td>
                     <td>{item.category}</td>
@@ -69,6 +71,9 @@ function ViewProduct() {
     }
 
     return (
+        <>
+        <Sidebar/>
+        
         <div>
             <div className="container">
                 <div className="row">
@@ -105,6 +110,7 @@ function ViewProduct() {
                 </div>
             </div>
         </div>
+        </>
     );
 
 }
