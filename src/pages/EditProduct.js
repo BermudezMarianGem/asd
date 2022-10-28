@@ -1,34 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+import {useLocation} from 'react-router';
 
 
-function EditProduct(props) {
+const EditProduct = ({productdata}) => {
 
-    const history = useHistory();
-    const [loading, setLoading] = useState(true);
-    const [productInput, setProduct] = useState([]);
+    const [user, setUser]= useState(null);
+    const location = useLocation();
+    const history = useNavigate();
     const [errorInput, setError] = useState([]);
-
-    useEffect(() => {
-        
-        const product_id = props.match.params.id;
-        axios.get(`/api/edit-product/${product_id}`).then( res => {
-
-            if(res.data.status === 200)
-            {
-                setProduct(res.data.product);
-                setLoading(false);
-            }
-            else if(res.data.status === 404)
-            {
-                swal("Error",res.data.message,"error");
-                history.push('/products');
-            }
-        });
-
-    }, [history]);
+    const state = location.state;
+    const [productInput, setProduct] = useState(state);
 
     const handleInput = (e) => {
         e.persist();
@@ -38,41 +22,44 @@ function EditProduct(props) {
     const updateProduct = (e) => {
         e.preventDefault();
         
-        const product_id = props.match.params.id;
-        // const data = studentInput;
+        const product_id = state.id;
         const data = {
-            category: productInput.category,
-            name: productInput.name,
-            description: productInput.description,
-            price: productInput.price,
-            quantity: productInput.quantity,
+            userId: user.id,
+            category: productInput.category || state.category,
+            name: productInput.name || state.name,
+            description: productInput.description || state.description,
+            price: productInput.price || state.price,
+            quantity: productInput.quantity || state.quantity,
         }
-
-        axios.put(`/api/update-product/${product_id}`, data).then(res=>{
+        console.log(data)
+        axios.put(`http://localhost:8000/api/products/${product_id}`, data).then(res=>{
             if(res.data.status === 200)
             {
                 swal("Success",res.data.message,"success");
                 setError([]);
-                history.push('/products');
+                history('/products');
             }
             else if(res.data.status === 422)
             {
-                swal("All fields are mandetory","","error");
+                swal("All fields are mandatory","","error");
                 setError(res.data.validationErrors);
             }
             else if(res.data.status === 404)
             {
                 swal("Error",res.data.message,"error");
-                history.push('/products');
+                history('/products');
             }
         });
     }
+    React.useEffect(() => {
+        console.log(localStorage.getItem('user'))
+        if (!user){
+            
+            setUser(JSON.parse(localStorage.getItem('user')))
+        }
 
-    if(loading)
-    {
-        return <h4>Loading Edit Product Data...</h4>
-    }
-    
+    },[user])
+
     return (
         <div>
             <div className="container">
@@ -86,30 +73,30 @@ function EditProduct(props) {
                             </div>
                             <div className="card-body">
                                 
-                                <form onSubmit={updateProduct} >
+                                <form onSubmit={(e) => updateProduct(e)} >
                                     <div className="form-group mb-3">
                                         <label>Product Category</label>
-                                        <input type="text" name="category" onChange={handleInput} value={productInput.category} className="form-control" />
+                                        <input type="text" name="category" onChange={(e) => handleInput(e)} value={productInput.category} className="form-control" />
                                         <span className="text-danger">{errorInput.category}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Name</label>
-                                        <input type="text" name="name" onChange={handleInput} value={productInput.name}  className="form-control" />
+                                        <input type="text" name="name" onChange={(e) => handleInput(e)} value={productInput.name}  className="form-control" />
                                         <span className="text-danger">{errorInput.name}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Description</label>
-                                        <input type="text" name="description" onChange={handleInput} value={productInput.description}  className="form-control" />
+                                        <input type="text" name="description" onChange={(e) => handleInput(e)} value={productInput.description}  className="form-control" />
                                         <span className="text-danger">{errorInput.description}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Price</label>
-                                        <input type="text" name="price" onChange={handleInput} value={productInput.price}  className="form-control" />
+                                        <input type="text" name="price" onChange={(e) => handleInput(e)} value={productInput.price}  className="form-control" />
                                         <span className="text-danger">{errorInput.price}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Quantity</label>
-                                        <input type="text" name="quantity" onChange={handleInput} value={productInput.quantity}  className="form-control" />
+                                        <input type="text" name="quantity" onChange={(e) => handleInput(e)} value={productInput.quantity}  className="form-control" />
                                         <span className="text-danger">{errorInput.quantity}</span>
                                     </div>
 

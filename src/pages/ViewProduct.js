@@ -2,24 +2,28 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Sidebar from './Sidebar';
+import Sidebars from './Sidebars';
 
-function ViewProduct() {
+function ViewProduct({userData}) {
 
+    const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        if (Object.keys(user).length === 0) {
+            setUser(JSON.parse(localStorage.getItem('user')))
+        }
 
-        axios.get(`/api/products`).then(res=>{
+        axios.get(`http://127.0.0.1:8000/api/products/${user.id}`).then(res=>{
             if(res.status === 200)
             {
-                setProducts(res.data.products)
+                //console.log(res.data)
+                setProducts(res.data)
                 setLoading(false);
             }
         });
-
-    }, []);
+    }, [user]);
 
     const deleteProduct = (e, id) => {
         e.preventDefault();
@@ -27,7 +31,7 @@ function ViewProduct() {
         const thisClicked = e.currentTarget;
         thisClicked.innerText = "Deleting";
 
-        axios.delete(`/api/delete-product/${id}`).then(res=>{
+        axios.delete(`http://localhost:8000/api/products/${id}`).then(res=>{
             if(res.data.status === 200)
             {
                 swal("Deleted!",res.data.message,"success");
@@ -60,7 +64,7 @@ function ViewProduct() {
                     <td>{item.price}</td>
                     <td>{item.quantity}</td>
                     <td>
-                        <Link to={`edit-product/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                        <Link to={"/edit-product"} state={item} className="btn btn-success btn-sm">Edit</Link>
                     </td>
                     <td>
                         <button type="button" onClick={(e) => deleteProduct(e, item.id)} className="btn btn-danger btn-sm">Delete</button>
@@ -72,7 +76,7 @@ function ViewProduct() {
 
     return (
         <>
-        <Sidebar/>
+        <Sidebars/>
         
         <div>
             <div className="container">
@@ -81,7 +85,7 @@ function ViewProduct() {
                         <div className="card">
                             <div className="card-header">
                                 <h4>Products Data
-                                    <Link to={'add-product'} className="btn btn-primary btn-sm float-end"> Add Product</Link>
+                                    <Link to={'/add-product'} className="btn btn-primary btn-sm float-end"> Add Product</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

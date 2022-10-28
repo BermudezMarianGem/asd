@@ -1,11 +1,11 @@
 import React , {useState}from 'react';
-import {useHistory, Link} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 const Login = () =>
 {
     const [username, setUsername]=useState("");
     const [password, setPassword]=useState("");
-    const history = useHistory();
+    const history = useNavigate();
 
     async function login()
     {
@@ -24,11 +24,11 @@ const Login = () =>
         
         if ("error" in result)
         {
-            alert("Error Message!")
+            alert("Incorrect Username or Password!")
         }
         else
         {
-            history.push("/homepage")
+            history("/homepage")
         }
         
     }

@@ -7,7 +7,7 @@ function EmptyProduct() {
     return(
         <>
         <Sidebar/>
-        <div classNameName='page-content-wrapper'>
+        <div className='page-content-wrapper'>
                
             <div className="container-fluid">
                 <h1 className="mt-4">Welcome "User!"</h1>

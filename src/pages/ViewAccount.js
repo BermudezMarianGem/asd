@@ -17,12 +17,14 @@ function ViewAccount()
                         <div className="card">
                             <div className="card-header">
                                 <h4>Account Details</h4>
-                                    <p>Firstname: {user.firstname} </p>
-                                    <p>Middlename: {user.middlename}</p>
-                                    <p>Lastname: {user.lastname}</p>
-                                    <p>Username: {user.username}</p>
-                                    <p>Mobile Phone: {user.mobilephone}</p>
+                                    <p>Name: {user.firstname} {user.middlename} {user.lastname}</p> 
+                                    <p>Birthdate: {user.birthdate}</p>
+                                    <p>Gender: {user.gender}</p>
                                     <p>Email: {user.email}</p>
+                                    <p>Mobile Phone: {user.mobilephone}</p>
+                                    <p>Address: {user.address}</p>
+                                    <p>Province: {user.province}</p>
+                                    <p>Region: {user.region}</p>
                                     <Link to={'/account'} className="btn btn-danger btn-sm float-end"> BACK</Link>
                             </div>
 

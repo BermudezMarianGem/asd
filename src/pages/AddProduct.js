@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 
 
 function AddProduct() {
 
-    const history = useHistory();
+    const history = useNavigate();
     const [productInput, setProduct] = useState({
         category:'',
         name: '',
@@ -30,9 +30,12 @@ function AddProduct() {
             description:productInput.description,
             price:productInput.price,
             quantity:productInput.quantity,
+            userId:JSON.parse(localStorage.getItem('user')).id
         }
 
-        axios.post(`/api/add-product`, data).then(res => {
+        console.log(data);
+
+        axios.post(`/api/products`, data).then(res => {
 
             if(res.data.status === 200)
             {
@@ -45,7 +48,7 @@ function AddProduct() {
                     quantity: '',
                     error_list: [],
                 });
-                history.push('/products');
+                history('/products');
             }
             else if(res.data.status === 422)
             {

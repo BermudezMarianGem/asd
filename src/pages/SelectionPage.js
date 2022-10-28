@@ -1,9 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
+import NavbarLandingPage from './NavbarLandingPage'
 function SelectionPage() 
 {
     return (
+        <>
+        <NavbarLandingPage/>
         <div>
             <div className='content'>
                 <div className='contentText'>
@@ -13,7 +15,7 @@ function SelectionPage()
                 <Link to={'/login-customer'} className="btn btn-primary btn-sm float-start"> Customer</Link>
             </div>
         </div>
-        
+        </>
     );
 
 }

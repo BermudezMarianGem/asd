@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import {useHistory, Link} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 const Register = () => {
 
@@ -10,7 +10,7 @@ const Register = () => {
     const [mobilephone, setPhone]=useState("")
     const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
-    const history = useHistory();
+    const history = useNavigate();
 
     async function signUp()
     {
@@ -30,7 +30,7 @@ const Register = () => {
         
         result = await result.json()
         localStorage.setItem("user-info", JSON.stringify(result))
-        history.push("/login-seller")
+        history("/login-seller")
     }
     return (
         <div className="col-sm-6 offset-sm-3">
