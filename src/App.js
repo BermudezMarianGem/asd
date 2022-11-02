@@ -8,15 +8,16 @@ import AddProduct from './pages/AddProduct';
 import EditProduct from './pages/EditProduct';
 import Homepage from './pages/HomePage';
 
-import axios from 'axios';
 import EmptyProduct from './pages/EmptyProduct';
 import LandingPage from './pages/LandingPage';
 import SelectionPage from './pages/SelectionPage';
 import AccountPage from './pages/Account';
 import ViewAccount from './pages/ViewAccount';
 import TransactionPage from './pages/Transaction';
+import EditAccount from './pages/EditAccount';
+import EditPassword from './pages/EditPassword';
+import Review from './pages/Review';
 
-axios.defaults.baseURL = "http://localhost:8000/";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
             <Route path="/homepage" element={<Homepage/>} />
             <Route path="/account" element={<AccountPage/>} />
             <Route path="/accountview" element={<ViewAccount/>} />
+            <Route path="/edit-account" element={<EditAccount/>}/>
+            <Route path="/edit-password" element={<EditPassword/>} />
+            <Route path="/review" element={<Review/>}/>
             <Route path="/transaction" element={<TransactionPage/>} />
             <Route path="/emptyproduct" element={<EmptyProduct/>} />
             <Route path="/products" element={<ViewProduct/>} />

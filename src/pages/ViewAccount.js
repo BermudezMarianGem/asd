@@ -19,7 +19,7 @@ function ViewAccount()
                                 <h4>Account Details</h4>
                                     <p>Name: {user.firstname} {user.middlename} {user.lastname}</p> 
                                     <p>Birthdate: {user.birthdate}</p>
-                                    <p>Gender: {user.gender}</p>
+                                    <p>Gender: {user.gender}</p> <Link to={'/edit-account'} state={user} className="btn btn-danger btn-sm float-end">Edit</Link>
                                     <p>Email: {user.email}</p>
                                     <p>Mobile Phone: {user.mobilephone}</p>
                                     <p>Address: {user.address}</p>

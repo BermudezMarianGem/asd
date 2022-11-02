@@ -76,8 +76,12 @@ const EditProduct = ({productdata}) => {
                                 <form onSubmit={(e) => updateProduct(e)} >
                                     <div className="form-group mb-3">
                                         <label>Product Category</label>
-                                        <input type="text" name="category" onChange={(e) => handleInput(e)} value={productInput.category} className="form-control" />
-                                        <span className="text-danger">{errorInput.category}</span>
+                                        <select type="text" id="category" name="category" onChange={handleInput} defaultValue={productInput.category} className="form-control">
+                                            <option value="default" selected hidden>Select Category</option>
+                                            <option value = "Vegetable">Vegetable</option>
+                                            <option value = "Fruit">Fruit</option>
+                                        </select>
+                                        <span className="text-danger">{productInput.error_list.category}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Name</label>
@@ -86,8 +90,12 @@ const EditProduct = ({productdata}) => {
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Description</label>
-                                        <input type="text" name="description" onChange={(e) => handleInput(e)} value={productInput.description}  className="form-control" />
-                                        <span className="text-danger">{errorInput.description}</span>
+                                        <select type="text" id="description" name="description" onChange={handleInput} defaultValue={productInput.description} className="form-control">
+                                            <option value="default" selected hidden>Select Product Description</option>
+                                            <option value = "Organic">Organic</option>
+                                            <option value = "Fertilize">Fertilize</option>
+                                        </select>
+                                        <span className="text-danger">{productInput.error_list.description}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Price</label>

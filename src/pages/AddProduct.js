@@ -35,7 +35,7 @@ function AddProduct() {
 
         console.log(data);
 
-        axios.post(`/api/products`, data).then(res => {
+        axios.post(`http://localhost:8000/api/products`, data).then(res => {
 
             if(res.data.status === 200)
             {
@@ -72,8 +72,12 @@ function AddProduct() {
                                 
                                 <form onSubmit={saveProduct} >
                                     <div className="form-group mb-3">
-                                        <label>Select product category</label>
-                                        <input type="text" name="category" onChange={handleInput} value={productInput.category} className="form-control" />
+                                        <label>Product Category</label>
+                                        <select type="text" id="category" name="category" onChange={handleInput} defaultValue={productInput.category} className="form-control">
+                                            <option value="default" selected hidden>Select Product Category</option>
+                                            <option value = "Vegetable">Vegetable</option>
+                                            <option value = "Fruit">Fruit</option>
+                                        </select>
                                         <span className="text-danger">{productInput.error_list.category}</span>
                                     </div>
                                     <div className="form-group mb-3">
@@ -83,7 +87,11 @@ function AddProduct() {
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Product Description</label>
-                                        <input type="text" name="description" onChange={handleInput} value={productInput.description}  className="form-control" />
+                                        <select type="text" id="description" name="description" onChange={handleInput} defaultValue={productInput.description} className="form-control">
+                                            <option value="default" selected hidden>Select Product Description</option>
+                                            <option value = "Organic">Organic</option>
+                                            <option value = "Fertilize">Fertilize</option>
+                                        </select>
                                         <span className="text-danger">{productInput.error_list.description}</span>
                                     </div>
                                     <div className="form-group mb-3">
