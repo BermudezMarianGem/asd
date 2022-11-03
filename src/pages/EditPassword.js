@@ -62,7 +62,7 @@ const EditPassword = () => {
                                 
                                 <form onSubmit={(e) => updatePassword(e)} >
 
-                                <div className="form-group mb-3">
+                                    <div className="form-group mb-3">
                                         <label>New Password</label>
                                         <input type="text" name="password" onChange={(e) => handleInput(e)} defaultValue={userInput.password}  className="form-control" />
                                         <span className="text-danger">{errorInput.password}</span>

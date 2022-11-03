@@ -17,6 +17,12 @@ import TransactionPage from './pages/Transaction';
 import EditAccount from './pages/EditAccount';
 import EditPassword from './pages/EditPassword';
 import Review from './pages/Review';
+import LoginCustomer from './pages/LoginCustomer';
+import RegisterCustomer from './pages/RegisterCustomer';
+import CustomerHomepage from './pages/CustomerHomepage';
+import Basket from './pages/Basket';
+import CustomerAccount from './pages/CustomerAccount';
+import EditCustomerAccount from './pages/EditCustomerAccount';
 
 
 function App() {
@@ -29,6 +35,12 @@ function App() {
             <Route path="/selectionpage" element={<SelectionPage/>} />
             <Route path="/register-seller" element={<Register/>} />
             <Route path="/login-seller" element={<Login/>} />
+            <Route path="/login-customer" element={<LoginCustomer/>} />
+            <Route path="/register-customer" element={<RegisterCustomer/>} />
+            <Route path="/customer-homepage" element={<CustomerHomepage/>} />
+            <Route path="/basket" element={<Basket/>} />
+            <Route path="/customer-account" element={<CustomerAccount/>} />
+            <Route path="/edit-customeraccount" element={<EditCustomerAccount/>} />
 
             <Route path="/homepage" element={<Homepage/>} />
             <Route path="/account" element={<AccountPage/>} />
