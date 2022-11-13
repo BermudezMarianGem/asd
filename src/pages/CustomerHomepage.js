@@ -24,22 +24,22 @@ const CustomerHomepage = () =>
                 <div>
                     <div className="card" style={{ width:160 , marginLeft:20}}>
                         <div className="card-body">
-                            <Link to={"/"}className="card-text">Vegetables</Link>
+                            <Link to={"/vegetables"}className="card-text">Vegetables</Link>
                         </div>
                     </div>
                     <div className="card" style={{ width:160 , marginLeft:20}}>
                         <div className="card-body">
-                            <Link to={"/"}className="card-text">Fruits</Link>
+                            <Link to={"/fruits"}className="card-text">Fruits</Link>
                         </div>
                     </div>
                     <div className="card" style={{ width:160 , marginLeft:20}}>
                         <div className="card-body">
-                            <Link to={"/"}className="card-text">Sale</Link>
+                            <Link to={"/sales"}className="card-text">Sale</Link>
                         </div>
                     </div>
                     <div className="card" style={{ width:160 , marginLeft:20}}>
                         <div className="card-body">
-                            <Link to={"/"}className="card-text">Free Delivery</Link>
+                            <Link to={"/freedelivery"}className="card-text">Free Delivery</Link>
                         </div>
                     </div>
                 </div>

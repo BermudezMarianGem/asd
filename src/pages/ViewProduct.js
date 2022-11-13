@@ -14,7 +14,7 @@ function ViewProduct({userData}) {
         if (Object.keys(user).length === 0) {
             setUser(JSON.parse(localStorage.getItem('user')))
         }
-
+    
         axios.get(`http://127.0.0.1:8000/api/products/${user.id}`).then(res=>{
             if(res.status === 200)
             {

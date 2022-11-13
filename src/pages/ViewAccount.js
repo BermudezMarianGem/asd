@@ -1,10 +1,30 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Sidebar from './Sidebar';
+import axios from 'axios';
 
 function ViewAccount() 
 {
-    let user = JSON.parse(localStorage.getItem('user-info'))
+    const [user, setUser]= React.useState({});
+    
+    React.useEffect(() => {
+        if(Object.keys(user).length === 0){
+            axios.get(`http://127.0.0.1:8000/api/user/${JSON.parse(localStorage.getItem('user-info')).id}`).then(res=>{
+            if(res.status === 200)
+            { 
+                const data = JSON.stringify(res.data[0])
+                localStorage.setItem('user-info', data)
+                setUser(JSON.parse(data))
+                console.log(user)
+                
+            }
+        })
+            
+        };
+        
+
+        
+    });
 
     return (
         <>

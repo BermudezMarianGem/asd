@@ -65,7 +65,7 @@ const EditCustomerAccount = () => {
                         <div className="card">
                             <div className="card-header">
                                 <h4>Edit Profile
-                                    <Link to={'/account'} className="btn btn-danger btn-sm float-end"> BACK</Link>
+                                    <Link to={'/customer-account'} className="btn btn-danger btn-sm float-end"> BACK</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

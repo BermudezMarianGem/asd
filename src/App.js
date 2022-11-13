@@ -23,6 +23,10 @@ import CustomerHomepage from './pages/CustomerHomepage';
 import Basket from './pages/Basket';
 import CustomerAccount from './pages/CustomerAccount';
 import EditCustomerAccount from './pages/EditCustomerAccount';
+import VegetablePage from './pages/Vegetables';
+import FruitPages from './pages/Fruits';
+import SalePage from './pages/Sale';
+import FreeDeliveryPage from './pages/Delivery';
 
 
 function App() {
@@ -31,6 +35,7 @@ function App() {
 
           <Routes> 
             
+
             <Route path="/" element={<LandingPage/>} />
             <Route path="/selectionpage" element={<SelectionPage/>} />
             <Route path="/register-seller" element={<Register/>} />
@@ -38,6 +43,12 @@ function App() {
             <Route path="/login-customer" element={<LoginCustomer/>} />
             <Route path="/register-customer" element={<RegisterCustomer/>} />
             <Route path="/customer-homepage" element={<CustomerHomepage/>} />
+
+            <Route path="/vegetables" element={<VegetablePage/>}/>
+            <Route path="/fruits" element={<FruitPages/>}/>
+            <Route path="/sales" element={<SalePage/>}/>
+            <Route path="/freedelivery" element={<FreeDeliveryPage/>}/>
+
             <Route path="/basket" element={<Basket/>} />
             <Route path="/customer-account" element={<CustomerAccount/>} />
             <Route path="/edit-customeraccount" element={<EditCustomerAccount/>} />

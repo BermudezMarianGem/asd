@@ -45,7 +45,7 @@ function CustomerAccount()
 
                 <div>
                     <Link to={'/'} className="btn btn-primary btn-sm float-start">Recent Transaction</Link>
-                    <Link to={'/'} className="btn btn-primary btn-sm float-start">Coupons/DIscount</Link>
+                    <Link to={'/'} className="btn btn-primary btn-sm float-start">Coupons/Discount</Link>
                     <Link to={'/'} className="btn btn-primary btn-sm float-start"> Review Orders</Link>
                     <button className='btn btn-primary' onClick={logoutCustomer}>Logout</button>
                 </div>
