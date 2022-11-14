@@ -1,5 +1,6 @@
 import React , {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
+import loginpic from '../pages/images/login.png';
 
 const Register = () => {
 
@@ -33,19 +34,84 @@ const Register = () => {
         history("/login-seller")
     }
     return (
-        <div className="col-sm-6 offset-sm-3">
-           <h1>CREATE ACCOUNT</h1>
-           <p>SIgn-up as a seller</p>
-           <input type="text" value={firstname} onChange={(e)=>setFirstname(e.target.value)} className="form-control" placeholder="Firstname" /><br/>
-           <input type="text" value={middlename} onChange={(e)=>setMiddlename(e.target.value)} className="form-control" placeholder="Middlename" /><br/>
-           <input type="text" value={lastname} onChange={(e)=>setLastname(e.target.value)} className="form-control" placeholder="Lastname" /><br/>
-           <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} className="form-control" placeholder="Username" /><br/>
-           <input type="text" value={mobilephone} onChange={(e)=>setPhone(e.target.value)} className="form-control" placeholder="Mobile Number" /><br/>
-           <input type="email" value={email}  onChange={(e)=>setEmail(e.target.value)} className="form-control" placeholder="Email" /><br/>
-           <input type="password" value={password}  onChange={(e)=>setPassword(e.target.value)} className="form-control" placeholder="Password" /><br/>
-           <button onClick = {signUp} className="btn btn-primary">Register</button>
-           <p>Already have an account?<Link to ="/login-seller">Login here</Link></p>
+    <html>
+    <body>
+    <div class="Parent">
+        <div class="child1">
+            <center>
+            <img className="login-flat" src={loginpic} alt="login" width={100} height={100}></img>
+            </center>
         </div>
+        <div class="child2">
+            <center>
+             <div className="title-create">
+                <p>CREATE ACCOUNT</p>
+              </div>
+              <div className="title-content">
+                <p>Sign-up as a seller</p>
+              </div>
+              <div className='input-create'>
+              <div class="container">
+                <div class="material-textfield">
+                  <input placeholder=" " value={firstname} onChange={(e)=>setFirstname(e.target.value)} type="text"/>
+                  <label>First name</label>
+                </div>
+              </div>
+                  <br></br>
+              <div class="container">
+                <div class="material-textfield">
+                  <input placeholder=" " value={middlename} onChange={(e)=>setMiddlename(e.target.value)} type="text"/>
+                  <label>Middle name</label>
+                </div>
+              </div>
+                  <br></br>
+              <div class="container">
+                <div class="material-textfield">
+                  <input placeholder=" " value={lastname} onChange={(e)=>setLastname(e.target.value)} type="text"/>
+                  <label>Last name</label>
+                </div>
+              </div>
+              <br></br>
+              <div class="container">
+                <div class="material-textfield">
+                  <input placeholder=" " value={email}  onChange={(e)=>setUsername(e.target.value)} type="text"/>
+                  <label>Username</label>
+                </div>
+              </div>
+              <br></br>
+              <div class="container">
+                <div class="material-textfield">
+                  <input placeholder=" " value={email}  onChange={(e)=>setEmail(e.target.value)} type="text"/>
+                  <label>Email (Optional)</label>
+                </div>
+              </div>
+              <br></br>
+              <div class="container">
+                <div class="material-textfield">
+                  <input placeholder=" " value={email}  onChange={(e)=>setPhone(e.target.value)} type="text"/>
+                  <label>Phone Number</label>
+                </div>
+              </div>
+              <br></br>
+              <div class="container">
+                <div class="material-textfield">
+                  <input placeholder=" " value={password}  onChange={(e)=>setPassword(e.target.value)} type="text"/>
+                  <label>Password</label>
+                </div>
+              </div>
+              <br></br>
+              </div>
+              <div className="button">
+                <button onClick = {signUp} className="bttn-register"> REGISTER </button>
+              </div>
+              <div className='login-bttn'>
+                <p>Already have an account?<Link to ="/login-seller"><b><u>Login here</u></b></Link></p>
+              </div>
+            </center>
+        </div>
+    </div>
+    </body>
+    </html>
     );
 
 }

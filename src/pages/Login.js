@@ -1,5 +1,6 @@
 import React , {useState}from 'react';
 import {useNavigate, Link} from 'react-router-dom';
+import loginpic from '../pages/images/login.png';
 
 const Login = () =>
 {
@@ -33,21 +34,51 @@ const Login = () =>
         
     }
     return(
-        <div>
-            
-            <div className="col-sm-6 offset-sm-3">
-                <h1>Seller Login Page</h1>
-                <p>Login to continue</p>
-                <input type ="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} className="form-control"/><br/>
-                <input type ="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}className="form-control"/><br/>
-
-                <button onClick={login}className="btn btn-primary">Login</button>
-                <p>Don't have account? <Link to ="/register-seller">Register here</Link></p>
+        <html>
+        <body>
+        <div class="Parent">
+            <div class="child1">
+                <center>
+                <img className="login-flat" src={loginpic} alt="login" width={100} height={100}></img>
+                </center>
             </div>
-            
-
+            <div class="child2">
+            <form>
+                <center>
+                 <div className="title">
+                    <p>SELLER LOGIN</p>
+                  </div>
+                  <div className="title-content">
+                    <p>Login to continue</p>
+                  </div>
+                  <div className='input-farmer'>
+                  <div class="container">
+                    <div class="material-textfield">
+                      <input placeholder=" " onChange={(e) => setUsername(e.target.value)} type="text"/>
+                      <label>Username</label>
+                    </div>
+                  </div>
+                      <br></br>
+                  <div class="container">
+                    <div class="material-textfield">
+                      <input placeholder=" " onChange={(e) => setPassword(e.target.value)} type="text"/>
+                      <label>Password</label>
+                    </div>
+                  </div>
+                  </div>
+                  <div className="button">
+                    <button onClick={login} className="bttn-login"> LOGIN </button>
+                  </div>
+                  <div className='login-bttn'>
+                    <p>Don’t have account? <Link to ="/register-seller"><b><u>Register here</u></b></Link></p>
+                  </div>
+                </center>
+              </form>
+            </div>
         </div>
-    )
+        </body>
+        </html>
+    );
 }
 
 export default Login;
