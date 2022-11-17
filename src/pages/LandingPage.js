@@ -24,8 +24,8 @@ function LandingPage()
                 <p>OPEN YOUR <br></br> STORE</p>
             </div>
             <div className="content">
-            <p> Manage your shop efficiently on <br></br>
-                Agrikonnect with our AgriKonnect<br></br> Farmer Center. </p>
+                <p> Manage your shop efficiently on <br></br>
+                    Agrikonnect with our AgriKonnect<br></br> Farmer Center. </p>
             </div>
             <div className="button">
             <button className="bttn"><Link to={'/selectionpage'}> GET STARTED </Link></button>

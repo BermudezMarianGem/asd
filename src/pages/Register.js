@@ -10,13 +10,14 @@ const Register = () => {
     const [username, setUsername]=useState("")
     const [mobilephone, setPhone]=useState("")
     const [email, setEmail]=useState("")
+    const [orgName, setOrgname]=useState("")
     const [password, setPassword]=useState("")
     const history = useNavigate();
 
     async function signUp()
     {
         
-        let item={firstname, middlename, lastname, username, mobilephone, email, password}
+        let item={firstname, middlename, lastname, username, mobilephone, email, orgName, password}
         console.warn(item)
 
         let result = await fetch("http://localhost:8000/api/register",
@@ -34,15 +35,13 @@ const Register = () => {
         history("/login-seller")
     }
     return (
-    <html>
-    <body>
-    <div class="Parent">
-        <div class="child1">
+    <div className="Parent">
+        <div className="child1">
             <center>
             <img className="login-flat" src={loginpic} alt="login" width={100} height={100}></img>
             </center>
         </div>
-        <div class="child2">
+        <div className="child2">
             <center>
              <div className="title-create">
                 <p>CREATE ACCOUNT</p>
@@ -51,51 +50,58 @@ const Register = () => {
                 <p>Sign-up as a seller</p>
               </div>
               <div className='input-create'>
-              <div class="container">
-                <div class="material-textfield">
+              <div className="container">
+                <div className="material-textfield">
                   <input placeholder=" " value={firstname} onChange={(e)=>setFirstname(e.target.value)} type="text"/>
                   <label>First name</label>
                 </div>
               </div>
                   <br></br>
-              <div class="container">
-                <div class="material-textfield">
+              <div className="container">
+                <div className="material-textfield">
                   <input placeholder=" " value={middlename} onChange={(e)=>setMiddlename(e.target.value)} type="text"/>
                   <label>Middle name</label>
                 </div>
               </div>
                   <br></br>
-              <div class="container">
-                <div class="material-textfield">
+              <div className="container">
+                <div className="material-textfield">
                   <input placeholder=" " value={lastname} onChange={(e)=>setLastname(e.target.value)} type="text"/>
                   <label>Last name</label>
                 </div>
               </div>
               <br></br>
-              <div class="container">
-                <div class="material-textfield">
-                  <input placeholder=" " value={email}  onChange={(e)=>setUsername(e.target.value)} type="text"/>
+              <div className="container">
+                <div className="material-textfield">
+                  <input placeholder=" " value={username}  onChange={(e)=>setUsername(e.target.value)} type="text"/>
                   <label>Username</label>
                 </div>
               </div>
               <br></br>
-              <div class="container">
-                <div class="material-textfield">
+              <div className="container">
+                <div className="material-textfield">
+                  <input placeholder=" " value={orgName}  onChange={(e)=>setOrgname(e.target.value)} type="text"/>
+                  <label>Organization Name</label>
+                </div>
+              </div>
+              <br></br>
+              <div className="container">
+                <div className="material-textfield">
                   <input placeholder=" " value={email}  onChange={(e)=>setEmail(e.target.value)} type="text"/>
                   <label>Email (Optional)</label>
                 </div>
               </div>
               <br></br>
-              <div class="container">
-                <div class="material-textfield">
-                  <input placeholder=" " value={email}  onChange={(e)=>setPhone(e.target.value)} type="text"/>
+              <div className="container">
+                <div className="material-textfield">
+                  <input placeholder=" " value={mobilephone}  onChange={(e)=>setPhone(e.target.value)} type="text"/>
                   <label>Phone Number</label>
                 </div>
               </div>
               <br></br>
-              <div class="container">
-                <div class="material-textfield">
-                  <input placeholder=" " value={password}  onChange={(e)=>setPassword(e.target.value)} type="text"/>
+              <div className="container">
+                <div className="material-textfield">
+                  <input placeholder=" " value={password}  onChange={(e)=>setPassword(e.target.value)} type="password"/>
                   <label>Password</label>
                 </div>
               </div>
@@ -110,8 +116,6 @@ const Register = () => {
             </center>
         </div>
     </div>
-    </body>
-    </html>
     );
 
 }

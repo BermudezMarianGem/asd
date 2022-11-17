@@ -34,16 +34,14 @@ const Login = () =>
         
     }
     return(
-        <html>
-        <body>
-        <div class="Parent">
-            <div class="child1">
+        <div className="Parent">
+            <div className="child1">
                 <center>
                 <img className="login-flat" src={loginpic} alt="login" width={100} height={100}></img>
                 </center>
             </div>
-            <div class="child2">
-            <form>
+            <div className="child2">
+            
                 <center>
                  <div className="title">
                     <p>SELLER LOGIN</p>
@@ -52,16 +50,16 @@ const Login = () =>
                     <p>Login to continue</p>
                   </div>
                   <div className='input-farmer'>
-                  <div class="container">
-                    <div class="material-textfield">
+                  <div className="container">
+                    <div className="material-textfield">
                       <input placeholder=" " onChange={(e) => setUsername(e.target.value)} type="text"/>
                       <label>Username</label>
                     </div>
                   </div>
                       <br></br>
-                  <div class="container">
-                    <div class="material-textfield">
-                      <input placeholder=" " onChange={(e) => setPassword(e.target.value)} type="text"/>
+                  <div className="container">
+                    <div className="material-textfield">
+                      <input placeholder=" " onChange={(e) => setPassword(e.target.value)} type="password"/>
                       <label>Password</label>
                     </div>
                   </div>
@@ -73,11 +71,9 @@ const Login = () =>
                     <p>Don’t have account? <Link to ="/register-seller"><b><u>Register here</u></b></Link></p>
                   </div>
                 </center>
-              </form>
+              
             </div>
         </div>
-        </body>
-        </html>
     );
 }
 

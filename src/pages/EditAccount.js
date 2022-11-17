@@ -31,9 +31,8 @@ const EditAccount = () => {
             username: userInput.username || state.username,
             mobilephone: userInput.mobilephone || state.mobilephone,
             email: userInput.email || state.email,
-            address: userInput.address || state.address,
-            province: userInput.province || state.province,
-            region: userInput.region || state.region,
+            orgName: userInput.orgName || state.orgName,
+            brgy: userInput.brgy || state.brgy,
         }
         console.log(data)
         axios.put(`http://localhost:8000/api/update/${user_id}`, data).then(res=>{
@@ -117,35 +116,36 @@ const EditAccount = () => {
                                         <span className="text-danger">{errorInput.email}</span>
                                     </div>
                                     <div className="form-group mb-3">
-                                        <label>Address - City</label>
-                                        <select type="text" id="address" name="address" onChange={(e) => handleInput(e)} defaultValue={userInput.address} className="form-control">
-                                            <option value="default" selected hidden>Select Address</option>
-                                            <option value = "Lucena">Lucena</option>
-                                            <option value = "Tayabas">Tayabas</option>
-                                            <option value = "Manila">Manila</option>
+                                        <label>Organization Name</label>
+                                        <select type="text" id="orgName" name="orgName" onChange={(e) => handleInput(e)} defaultValue={userInput.orgName} className="form-control">
+                                            <option value="default" selected hidden>Select your Organization</option>
+                                            <option value = "Tayabas Manananim">Tayabas Manananim</option>
+                                            <option value = "KASAMA PGT">KASAMA PGT</option>
+                                            <option value = "Tayabas Group of Plants">Tayabas Group of Plants</option>
                                         </select>
-                                        <span className="text-danger">{errorInput.address}</span>
+                                        <span className="text-danger">{errorInput.orgName}</span>
                                     </div>
                                     <div className="form-group mb-3">
-                                        <label>Province</label>
-                                        <select type="text" id="province" name="province" onChange={(e) => handleInput(e)} defaultValue={userInput.province} className="form-control">
-                                            <option value="default" selected hidden>Select Province</option>
-                                            <option value = "Batangas">Batangas</option>
-                                            <option value = "Cavite">Cavite</option>
-                                            <option value = "Laguna">Laguna</option>
-                                            <option value = "Quezon">Quezon</option>
-                                            <option value = "Rizal">Rizal</option>
+                                        <label>Barangay</label>
+                                        <select type="text" id="brgy" name="brgy" onChange={(e) => handleInput(e)} defaultValue={userInput.brgy} className="form-control">
+                                            <option value="default" selected hidden>Select your Barangay</option>
+                                            <option value = "Alitao">Alitao</option>
+                                            <option value = "Alsam Ibaba">Alsam Ibaba</option>
+                                            <option value = "Alsam Ilaya">Alsam Ilaya</option>
+                                            <option value = "Alupay">Alupay</option>
+                                            <option value = "Angeles Zone I">Angeles Zone I</option>
+                                            <option value = "Angeles Zone II">Angeles Zone II</option>
+                                            <option value = "Angeles Zone III">Angeles Zone III</option>
+                                            <option value = "Angeles Zone IV">Angeles Zone IV</option>
+                                            <option value = "Angustias Zone I">Angustias Zone I</option>
+                                            <option value = "Angustias Zone II">Angustias Zone II</option>
+                                            <option value = "Angustias Zone III">Angustias Zone III</option>
+                                            <option value = "Angustias Zone IV">Angustias Zone IV</option>
+                                            <option value = "Anos">Anos</option>
+                                            <option value = "Ayaas">Ayaas</option>
+                                            <option value = "Baguio">Baguio</option>
                                         </select>
-                                        <span className="text-danger">{errorInput.province}</span>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <label>Region</label>
-                                        <select type="text" id="region" name="region" onChange={(e) => handleInput(e)} defaultValue={userInput.region} className="form-control">
-                                            <option value="default" selected hidden>Select Region</option>
-                                            <option value = "Calabarzon">Calabarzon</option>
-                                            <option value = "Central Luzon">Central Luzon</option>
-                                        </select>
-                                        <span className="text-danger">{errorInput.region}</span>
+                                        <span className="text-danger">{errorInput.brgy}</span>
                                     </div>
                                     
 

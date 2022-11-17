@@ -27,6 +27,9 @@ import VegetablePage from './pages/Vegetables';
 import FruitPages from './pages/Fruits';
 import SalePage from './pages/Sale';
 import FreeDeliveryPage from './pages/Delivery';
+import SearchProduct from './pages/SearchProduct';
+import ProductDetails from './pages/ProductDetail';
+import VegetableDetails from './pages/VegetableDetails';
 
 
 function App() {
@@ -46,8 +49,11 @@ function App() {
 
             <Route path="/vegetables" element={<VegetablePage/>}/>
             <Route path="/fruits" element={<FruitPages/>}/>
+            <Route path="/fruits/:name" element={<ProductDetails/>}/>
+            <Route path="/vegetables/:name" element={<VegetableDetails/>}/>
             <Route path="/sales" element={<SalePage/>}/>
             <Route path="/freedelivery" element={<FreeDeliveryPage/>}/>
+            <Route path="/searchproduct" element={<SearchProduct/>}/>
 
             <Route path="/basket" element={<Basket/>} />
             <Route path="/customer-account" element={<CustomerAccount/>} />

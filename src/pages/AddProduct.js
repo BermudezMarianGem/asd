@@ -65,7 +65,7 @@ function AddProduct() {
                         <div className="card">
                             <div className="card-header">
                                 <h4>Add Product 
-                                    <Link to={'/'} className="btn btn-danger btn-sm float-end"> BACK</Link>
+                                    <Link to={'/products'} className="btn btn-danger btn-sm float-end"> BACK</Link>
                                 </h4>
                             </div>
                             <div className="card-body">

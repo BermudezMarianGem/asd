@@ -42,9 +42,8 @@ function ViewAccount()
                                     <p>Gender: {user.gender}</p> <Link to={'/edit-account'} state={user} className="btn btn-danger btn-sm float-end">Edit</Link>
                                     <p>Email: {user.email}</p>
                                     <p>Mobile Phone: {user.mobilephone}</p>
-                                    <p>Address: {user.address}</p>
-                                    <p>Province: {user.province}</p>
-                                    <p>Region: {user.region}</p>
+                                    <p>Organization Name: {user.orgName}</p>
+                                    <p>Address:{user.brgy}</p>
                                     <Link to={'/account'} className="btn btn-danger btn-sm float-end"> BACK</Link>
                             </div>
 

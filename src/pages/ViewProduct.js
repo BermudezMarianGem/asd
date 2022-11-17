@@ -14,7 +14,7 @@ function ViewProduct({userData}) {
         if (Object.keys(user).length === 0) {
             setUser(JSON.parse(localStorage.getItem('user')))
         }
-    
+        
         axios.get(`http://127.0.0.1:8000/api/products/${user.id}`).then(res=>{
             if(res.status === 200)
             {
@@ -51,7 +51,26 @@ function ViewProduct({userData}) {
     }
     else
     {
-        var product_HTMLTABLE = "";
+        var showProductList = "";
+        showProductList = products.map( (item, idx) => {
+            return(
+                <div className='col-md-3' key={idx}>
+                    <div className='card'>
+                        <div className='card-body'>
+                            <h6>{item.id}</h6>
+                            <h6>{item.category}</h6>
+                            <h6>{item.name}</h6>
+                            <h6>{item.description}</h6>
+                            <h6>{item.price}</h6>
+                            <h6>{item.quantity}</h6>
+                        </div>
+                        <Link to={"/edit-product"} state={item} className="btn btn-success btn-sm">Edit</Link>
+                        <button type="button" onClick={(e) => deleteProduct(e, item.id)} className="btn btn-danger btn-sm">Delete</button>
+                    </div>
+                </div>
+            )
+        });
+        /*var product_HTMLTABLE = "";
        
         product_HTMLTABLE = products.map( (item, index) => {
             return (
@@ -71,7 +90,7 @@ function ViewProduct({userData}) {
                     </td>
                 </tr>
             );
-        });
+        });*/
     }
 
     return (
@@ -81,7 +100,7 @@ function ViewProduct({userData}) {
         <div>
             <div className="container">
                 <div className="row">
-                    <div className="col-md-12">
+                    <div>
                         <div className="card">
                             <div className="card-header">
                                 <h4>Products Data
@@ -89,24 +108,11 @@ function ViewProduct({userData}) {
                                 </h4>
                             </div>
                             <div className="card-body">
-                                
-                                <table className="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Description</th>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {product_HTMLTABLE}
-                                    </tbody>
-                                </table>
+                                <div>
+                                    <div className='row'>
+                                        {showProductList}
+                                    </div>
+                            </div>
 
                             </div>
                         </div>
