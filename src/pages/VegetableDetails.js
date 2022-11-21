@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import NavbarCustomer from './NavbarCustomer';
 
 function VegetableDetails()
@@ -14,14 +15,16 @@ function VegetableDetails()
 
     const product_id = state.id;
     const vege = {
+      user_id: state.user_id,
       name: state.name,
       description: state.description,
       price: state.price,
       quantity: state.quantity,
     }
+    //let x = vege.user_id;
     
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/viewvegetable/${product_id}`).then((res) => {
+        axios.get(`http://localhost:8000/api/viewvegetable/${product_id}`, vege).then((res) => {
           if (res.status === 200) {
             setData(res.data.products);
             setLoading(false);
@@ -30,6 +33,9 @@ function VegetableDetails()
         console.log(data)
         
       },);
+
+      //global.uid = vege.user_id;
+      //global.name = vege.name
 
       const handleDecrement = () => {
         if(value > 1)
@@ -46,18 +52,44 @@ function VegetableDetails()
         }
         
       }
+      const submitProduct = (e) => {
+        e.preventDefault();
+  
+        const data = {
+          fruits_id: state.id,
+          fruits_qty: value,  
+          name: state.name,
+          price: state.price,
+          customerId:JSON.parse(localStorage.getItem('customer')).id
+        }
+  
+       axios.post(`http://localhost:8000/api/addtoCart`, data).then(res=>{
+          if(res.data.status === 201)
+          {
+            swal("Success",res.data.message,"success");
+          }
+          else if(res.data.status === 409)
+          {
+            swal("Warning",res.data.message,"warning");
+          }
+          else if(res.data.status === 401)
+          {
+            swal("Error",res.data.message,"error");
+          }
+          else if(res.data.status === 404)
+          {
+            swal("Warning",res.data.message,"warning");
+          }
+        });
+  
+      }
+      
 
       if(loading)
     {
         return <h4>Loading Vegetable Details...</h4>
     }
-    else
-    {
-      if(vege.quantity)
-      {
-
-      }
-    }
+    
 
     return(
       <>
@@ -65,9 +97,10 @@ function VegetableDetails()
       <NavbarCustomer/>
       
       <Link to={'/vegetables'} className="btn btn-danger btn-sm float-end"> BACK</Link>
+
+      <form onSubmit={submitProduct}>
       <div className='py-3'>
         <div className='container'>
-        
           <div className='row'>
             <h4>Vegetable Section</h4>
             <div className='col-md-8'>
@@ -89,12 +122,14 @@ function VegetableDetails()
                 </div>
               </div>
               <div className='col-md-3 mt-3'>
-                <button type="button" className='btn btn-primary w-100'>Add to Basket</button>
+                <button type="submit" className='btn btn-primary w-100' >Add to Basket</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      </form>
+      
       </>
       
     );

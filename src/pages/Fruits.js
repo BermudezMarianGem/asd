@@ -9,7 +9,6 @@ function FruitPages()
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const productCount = data.length;
     let customer = JSON.parse(localStorage.getItem('user-info'))
     localStorage.setItem('customer', JSON.stringify(customer))
     
@@ -31,8 +30,6 @@ function FruitPages()
     else
     {
         var showProductList = "";
-        if(productCount)
-        {
             showProductList = data.map( (item, idx) => {
                 return(
                     <div className='col-md-3' key={idx}>
@@ -46,13 +43,6 @@ function FruitPages()
                     </div>
                 )
             });
-        }
-        else
-        {
-            showProductList = <div className='col-md-12'>
-                <h4>No Product Available for {data.name}</h4>
-            </div>
-        }
         
         /*var product_HTMLTABLE = "";
        

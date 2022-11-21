@@ -49,12 +49,13 @@ function ViewProduct({userData}) {
     {
         return <h4>Loading Product Data...</h4>
     }
-    else
+    
+    if (products.length > 0)
     {
         var showProductList = "";
         showProductList = products.map( (item, idx) => {
             return(
-                <div className='col-md-3' key={idx}>
+                <div className='col-md-20' key={idx}>
                     <div className='card'>
                         <div className='card-body'>
                             <h6>{item.id}</h6>
@@ -70,6 +71,18 @@ function ViewProduct({userData}) {
                 </div>
             )
         });
+    }
+    else{
+        showProductList = <div>
+            <div className='card card-body py05 text-center shadow-sm'>
+                <h4>Welcome {user.name}</h4>
+                <h6>You can now post your products.</h6>
+                <Link to={'/add-product'} className="btn btn-primary btn-sm float-end"> Add Product</Link>
+            </div>
+        </div>
+      }
+    
+        
         /*var product_HTMLTABLE = "";
        
         product_HTMLTABLE = products.map( (item, index) => {
@@ -91,29 +104,21 @@ function ViewProduct({userData}) {
                 </tr>
             );
         });*/
-    }
+    
 
     return (
         <>
         <Sidebars/>
-        
         <div>
             <div className="container">
                 <div className="row">
-                    <div>
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Products Data
-                                    <Link to={'/add-product'} className="btn btn-primary btn-sm float-end"> Add Product</Link>
-                                </h4>
-                            </div>
-                            <div className="card-body">
-                                <div>
-                                    <div className='row'>
-                                        {showProductList}
-                                    </div>
-                            </div>
-
+                    <div className="card">
+                    <div className="card-header">
+                        <h4>My Products</h4> <Link to={'/add-product'} className="btn btn-primary btn-sm float-end"> Add Product</Link>
+                    </div>
+                        <div className="card-body">
+                            <div className='row'>
+                                {showProductList}
                             </div>
                         </div>
                     </div>

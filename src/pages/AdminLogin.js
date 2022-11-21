@@ -1,40 +1,23 @@
 import React , {useState}from 'react';
-import {useNavigate, Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import loginpic from '../pages/images/login.png';
 
-const Login = () =>
+const LoginAdmin = () =>
 {
+    const history = useNavigate();
     const [username, setUsername]=useState("");
     const [password, setPassword]=useState("");
-    const history = useNavigate();
 
-    async function login()
+    function adminLogin()
     {
-        let item={username,password};
-        let result = await fetch("http://localhost:8000/api/login",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": 'application/json',
-            },
-            body:JSON.stringify(item)
-
-        });
-        result = await result.json();
-        localStorage.setItem("user-info",JSON.stringify(result))
-        if ("error" in result)
+        if((username !== 'admin') || (password !== 'password'))
         {
-            alert("Incorrect Username or Password!")
-        }
-        else if("notVerified" in result)
-        {
-            alert("Please wait for the notification for you to login. Thank you!");
+            alert("You don't have right to access this site");
         }
         else
         {
-            history("/homepage");
+            history('/admin-dashboard');
         }
-        
     }
     return(
         <div className="Parent">
@@ -47,7 +30,7 @@ const Login = () =>
             
                 <center>
                  <div className="title">
-                    <p>SELLER LOGIN</p>
+                    <p>ADMIN LOGIN</p>
                   </div>
                   <div className="title-content">
                     <p>Login to continue</p>
@@ -68,10 +51,7 @@ const Login = () =>
                   </div>
                   </div>
                   <div className="button">
-                    <button onClick={login} className="bttn-login"> LOGIN </button>
-                  </div>
-                  <div className='login-bttn'>
-                    <p>Don’t have account? <Link to ="/register-seller"><b><u>Register here</u></b></Link></p>
+                    <button onClick={adminLogin} className="bttn-login"> LOGIN </button>
                   </div>
                 </center>
               
@@ -80,4 +60,4 @@ const Login = () =>
     );
 }
 
-export default Login;
+export default LoginAdmin;

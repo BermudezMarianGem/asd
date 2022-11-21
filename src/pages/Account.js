@@ -1,6 +1,6 @@
 import React  from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import Sidebar from './Sidebar';
+import Sidebars from './Sidebars';
 
 function AccountPage() 
 {
@@ -14,10 +14,11 @@ function AccountPage()
     }
     return (
         <>
-        <Sidebar/>
+        <Sidebars/>
         <div>
             <div className='content'>
                 <div className='contentText'>
+                    <Link to={`/edit-userprofile/`} state={user} className="btn btn-primary btn-sm float-start">Edit Picture</Link>
                     <p>{user.firstname}</p>
                     <p>{user.email}</p>
                 </div>

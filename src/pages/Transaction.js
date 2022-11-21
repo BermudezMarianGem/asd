@@ -1,11 +1,11 @@
 import React from 'react';
-import Sidebar from './Sidebar';
+import Sidebars from './Sidebars';
 
 function TransactionPage() 
 {
     return (
         <>
-        <Sidebar/>
+        <Sidebars/>
         <div>
             <div className='content'>
                 <div className='contentText'>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Sidebar from './Sidebar';
+import Sidebars from './Sidebars';
 import axios from 'axios';
 
 function ViewAccount() 
@@ -28,7 +28,7 @@ function ViewAccount()
 
     return (
         <>
-        <Sidebar/>
+        <Sidebars/>
         
         <div>
             <div className="container">
@@ -39,11 +39,12 @@ function ViewAccount()
                                 <h4>Account Details</h4>
                                     <p>Name: {user.firstname} {user.middlename} {user.lastname}</p> 
                                     <p>Birthdate: {user.birthdate}</p>
-                                    <p>Gender: {user.gender}</p> <Link to={'/edit-account'} state={user} className="btn btn-danger btn-sm float-end">Edit</Link>
+                                    <p>Gender: {user.gender}</p> 
                                     <p>Email: {user.email}</p>
                                     <p>Mobile Phone: {user.mobilephone}</p>
                                     <p>Organization Name: {user.orgName}</p>
                                     <p>Address:{user.brgy}</p>
+                                    <Link to={'/edit-account'} state={user} className="btn btn-danger btn-sm float-end">Edit</Link>
                                     <Link to={'/account'} className="btn btn-danger btn-sm float-end"> BACK</Link>
                             </div>
 
