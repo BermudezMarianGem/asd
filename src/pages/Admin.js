@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function AdminTable() {
 
@@ -37,7 +38,7 @@ function AdminTable() {
 
     if(loading)
     {
-        return <h4>Loading User Data...</h4>
+        return <CircularProgress color="success" />
     }
     else
     {

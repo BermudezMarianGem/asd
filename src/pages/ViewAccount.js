@@ -1,7 +1,18 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import Sidebars from './Sidebars';
 import axios from 'axios';
+import { Box, 
+    FormControl, 
+    Button, 
+    InputLabel, 
+    Select,
+    MenuItem,
+    Stack,
+    TextField, 
+    Avatar, 
+    Typography, 
+    Chip} from '@mui/material';
 
 function ViewAccount() 
 {
@@ -25,7 +36,7 @@ function ViewAccount()
 
         
     });
-
+    const navigate = useNavigate();
     return (
         <>
         <Sidebars/>
@@ -44,7 +55,8 @@ function ViewAccount()
                                     <p>Mobile Phone: {user.mobilephone}</p>
                                     <p>Organization Name: {user.orgName}</p>
                                     <p>Address:{user.brgy}</p>
-                                    <Link to={'/edit-account'} state={user} className="btn btn-danger btn-sm float-end">Edit</Link>
+                                    <Button onClick={() => navigate(`/edit-account/${user.id}`,{state:user})}
+                                   className="btn btn-danger btn-sm float-end">Edit</Button>
                                     <Link to={'/account'} className="btn btn-danger btn-sm float-end"> BACK</Link>
                             </div>
 

@@ -1,14 +1,148 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Sidebars from './Sidebars';
+import { Box, 
+    Button,
+    Typography,
+    Grid,
+    Toolbar,
+    Paper,
+    Stack,
+    ListItem,
+    ListItemText,
+    IconButton,
+    InputBase,
+    Fab} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import ResponsiveDrawer from '../components/Drawer';
+import { Image } from 'mui-image';
+import AddIcon from '@mui/icons-material/Add';
+import Ecommerce from '../assets/e-commerce-empty.png';
+import CircularProgress from '@mui/material/CircularProgress';
+import {useNavigate} from 'react-router-dom';
 
-function ViewProduct({userData}) {
+//ScreenSize
+const drawerWidth = 240;
+
+//Styles
+const classes = {
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: 20,
+    textAlign: "center",
+    color: "blue"
+  },
+  Header: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    color: '#5F645F',
+    marginBottom: 5,
+  },
+  SearchButton: {
+    fontFamily: 'Poppins',
+    marginBottom: 5,
+    backgroundColor: '#DCDCDC'
+  },
+  AddButton:{
+    backgroundColor: '#31A05F',
+    position:'fixed',
+    bottom:40,
+	  right:40,
+    "&:hover": {
+      color: '#FFFF',
+      backgroundColor: '#388E3C',
+    },
+  },
+  addIcon: {
+    color: '#FFFF',
+  },
+  positionImage: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    duration: 0,
+  },
+  positionButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  EditButton: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    backgroundColor:'#F5E12A',
+    color: '#000000',
+    padding: 1,
+    "&:hover": {
+      color: '#FFFF',
+      backgroundColor: '#388E3C',
+    },
+  },
+  ProductTitle: {
+    fontFamily: 'Poppins',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000000',
+    textAlign: 'center'
+  },
+  QuantityTitle: {
+    fontFamily: 'Poppins',
+    color: '#000000',
+    textAlign: 'center'
+  },
+  HeaderSub: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontFamily: 'Poppins',
+    color: '#5F645F',
+    },
+    illustration:{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    },
+    AddButton:{
+        backgroundColor: '#31A05F',
+        position:'fixed',
+        bottom:40,
+          right:40,
+        "&:hover": {
+          color: '#FFFF',
+          backgroundColor: '#388E3C',
+        },
+    },
+    productImg:{
+        width: '50%',
+        height: '50%',
+    },
+    paper: {
+        padding: 20,
+        textAlign: "center",
+        color: "blue"
+      },
+      Header: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold',
+        color: '#5F645F',
+        marginBottom: 5,
+      },
+      SearchButton: {
+        fontFamily: 'Poppins',
+        marginBottom: 5,
+        backgroundColor: '#DCDCDC'
+      },  
+};
+
+function ViewProduct(props) {
 
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (Object.keys(user).length === 0) {
@@ -47,7 +181,7 @@ function ViewProduct({userData}) {
 
     if(loading)
     {
-        return <h4>Loading Product Data...</h4>
+        return <CircularProgress color="success" />
     }
     
     if (products.length > 0)
@@ -55,31 +189,33 @@ function ViewProduct({userData}) {
         var showProductList = "";
         showProductList = products.map( (item, idx) => {
             return(
-                <div className='col-md-20' key={idx}>
-                    <div className='card'>
-                        <div className='card-body'>
-                            <h6>{item.id}</h6>
-                            <h6>{item.category}</h6>
-                            <h6>{item.name}</h6>
-                            <h6>{item.description}</h6>
-                            <h6>{item.price}</h6>
-                            <h6>{item.quantity}</h6>
-                        </div>
-                        <Link to={"/edit-product"} state={item} className="btn btn-success btn-sm">Edit</Link>
-                        <button type="button" onClick={(e) => deleteProduct(e, item.id)} className="btn btn-danger btn-sm">Delete</button>
-                    </div>
-                </div>
+                <Grid item xs={4} key={idx}>
+                    <Paper style={classes.paper}>
+                        <ListItem sx={classes.positionImage}>
+                            <Image sx={classes.productImg} duration={0} src={`http://localhost:8000/${item.image}`}/>
+                        </ListItem>
+                        <ListItem>
+                        <ListItemText primaryTypographyProps={classes.ProductTitle} 
+                        secondaryTypographyProps={classes.QuantityTitle}
+                        primary={item.name} secondary={item.category}/>
+                        </ListItem>
+                        <ListItem sx={classes.positionButton}>
+                            <Button variant="contained" onClick={() => navigate(`/products/edit/${item.id}`,{state:item})} sx={classes.EditButton}>EDIT</Button>
+                        </ListItem>
+                    </Paper>
+                </Grid>
             )
         });
     }
     else{
-        showProductList = <div>
-            <div className='card card-body py05 text-center shadow-sm'>
-                <h4>Welcome {user.name}</h4>
-                <h6>You can now post your products.</h6>
-                <Link to={'/add-product'} className="btn btn-primary btn-sm float-end"> Add Product</Link>
-            </div>
-        </div>
+        showProductList = <Stack direction='column'>
+            <Box sx = {classes.illustration}>
+                <Image duration = {0} src={Ecommerce} height= {"50hv"} width= {"50hv"}></Image>
+            </Box>    
+                <Typography variant='h5' sx={classes.HeaderSub}>
+                You can now post your products.
+                </Typography>
+        </Stack>
       }
     
         
@@ -107,25 +243,41 @@ function ViewProduct({userData}) {
     
 
     return (
-        <>
-        <Sidebars/>
-        <div>
-            <div className="container">
-                <div className="row">
-                    <div className="card">
-                    <div className="card-header">
-                        <h4>My Products</h4> <Link to={'/add-product'} className="btn btn-primary btn-sm float-end"> Add Product</Link>
-                    </div>
-                        <div className="card-body">
-                            <div className='row'>
-                                {showProductList}
-                            </div>
-                        </div>
-                    </div>
+        <Box sx={{ display: 'flex' }}>
+            <ResponsiveDrawer/>
+            <Box
+            component="main"
+            sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+            >
+            <Toolbar />
+            <Typography variant='h3' sx={classes.Header}>
+                My Products
+            </Typography>
+            <Box>
+                    <Button fullWidth onClick={() => navigate('/sellersearch')} component="form" elevation={1} sx={classes.SearchButton}>
+                        <IconButton  sx={{ p: '10px' }} aria-label="menu">
+                        <SearchIcon />
+                        </IconButton>
+                        <Button
+                        sx={{ ml: 1, flex: 1, fontFamily: 'Poppins', }}
+                        placeholder="Search product"
+                        inputProps={{ 'aria-label': 'Search' }}
+                        />
+                    </Button>
+            </Box>
+            <Fab sx={classes.AddButton} aria-label="add" onClick={() => navigate('/products/add')}>
+                <AddIcon sx={classes.addIcon}/>
+            </Fab>
+                <div style={classes.root}>
+                    <Grid container spacing={1}>
+                        <Grid container item xs={12} spacing={3}>
+                        {/*Render the InnerGrid as a child item */}
+                        {showProductList}
+                        </Grid>
+                    </Grid>
                 </div>
-            </div>
-        </div>
-        </>
+            </Box>
+        </Box>
     );
 
 }

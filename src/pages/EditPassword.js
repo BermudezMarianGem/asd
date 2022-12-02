@@ -1,9 +1,71 @@
 import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 import {useLocation} from 'react-router';
+import { Box, 
+    Button, 
+    InputLabel, 
+    Input, 
+    Stack,
+    Typography } from '@mui/material';
+import ResponsiveDrawer from '../components/Drawer';
+import Toolbar from '@mui/material/Toolbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+
+const drawerWidth = 240;
+const classes = {
+    Header: {
+      fontFamily: 'Poppins',
+      fontWeight: 'bold',
+      color: '#5F645F',
+      marginTop: 1,
+      marginLeft: 2,
+    },
+    arrowback:{
+        color: '#5F645F',
+        width: 50,
+        height: 50,
+    },
+    IconPosition:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    Icon:{
+        width: 200,
+        height: 200,
+        margin: 1,
+    },
+    TextPosition:{
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: 3,
+        marginLeft: 1,
+    },
+    label: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold',
+        marginTop: 4,
+        marginLeft: 1,
+        textAlign: 'left',
+    },
+    EditButton:{
+        fontFamily: 'Poppins',
+        fontWeight: 'bold',
+        color: '#FFFF',
+        borderRadius: 1,
+        margin: 5,
+        width: 200,
+        padding: 1,
+        backgroundColor: '#388E3C',
+        "&:hover": {
+            color: '#FFFF',
+            backgroundColor: '#388E3C',
+        },
+    }
+}
 
 const EditPassword = () => {
 
@@ -11,7 +73,7 @@ const EditPassword = () => {
     const history = useNavigate();
     const [errorInput, setError] = useState([]);
     const state = location.state;
-    const [userInput, setPassword] = useState(state);
+    const [userInput, setPassword] = useState([]);
 
     const handleInput = (e) => {
         e.persist();
@@ -22,6 +84,8 @@ const EditPassword = () => {
         e.preventDefault();
         
         const user_id = state.id;
+
+        console.log(user_id)
         const data = {
             password: userInput.password || state.password,
         }
@@ -48,36 +112,44 @@ const EditPassword = () => {
 
     
     return (
-        <div>
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Edit Products 
-                                    <Link to={'/account'} className="btn btn-danger btn-sm float-end"> BACK</Link>
-                                </h4>
-                            </div>
-                            <div className="card-body">
-                                
-                                <form onSubmit={(e) => updatePassword(e)} >
-
-                                    <div className="form-group mb-3">
-                                        <label>New Password</label>
-                                        <input type="text" name="password" onChange={(e) => handleInput(e)} defaultValue={userInput.password}  className="form-control" />
-                                        <span className="text-danger">{errorInput.password}</span>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <button type="submit" id="updatebtn" className="btn btn-primary">Save Password</button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Box sx={{ display: 'flex' }}>
+        <ResponsiveDrawer/>
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        >
+          <Toolbar />
+          <Stack direction='row'>
+              <Button onClick={() => history('/account')}>
+              <ArrowBackIcon sx = {classes.arrowback}/>
+              </Button>
+              <Typography variant='h4' sx={classes.Header}>
+                  Password
+              </Typography>
+          </Stack>
+          <Stack direction="column" sx={classes.TextPosition}>
+              <Box component="form" >
+                  <Typography sx={classes.label}>
+                  NEW PASSWORD
+                  </Typography>
+                  <Box sx={{ m: 1, width: '25ch',display: 'flex',
+                  alignItems: 'center', }} variant="standard">
+                  <InputLabel htmlFor="standard-adornment-password"></InputLabel>
+                  <Input
+                      id="password"
+                      name='password'
+                      type={'password'}
+                      onChange={(e) => handleInput(e)} 
+                      defaultValue={userInput?.password}
+                  />
+                  </Box>
+                    <Button sx={classes.EditButton} onClick={(e) => updatePassword(e)} aria-label="add">
+                      SAVE CHANGES
+                    </Button>
+              </Box>
+          </Stack>
+          </Box>
+      </Box>
     );
 
 }

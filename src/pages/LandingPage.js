@@ -1,44 +1,87 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import logo2 from '../pages/images/landinglogo.png';
-import logo from '../pages/images/logo.png';
+import { Box,Stack, Toolbar, Typography,Button } from '@mui/material';
+import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import {useNavigate} from 'react-router-dom';
+import { Image } from 'mui-image';
+import illustrate from '../assets/e-commerce.png';
 
-function LandingPage() 
-{
-    return (
-        <>
-        <header className="header">
-            <div className="wrap">
-            <header className="header-title">
-                <div className='title-logo'>
-                    <h1 className="logo-title">
-                    <img src={logo}  alt="logo" width={100} height={100}></img>
-                    AgriKOnnect
-                    </h1>
-                </div>
-            </header>
-            </div>
-        </header>
-        <div className="column-left">
-            <div className="content1">
-                <p>OPEN YOUR <br></br> STORE</p>
-            </div>
-            <div className="content">
-                <p> Manage your shop efficiently on <br></br>
-                    Agrikonnect with our AgriKonnect<br></br> Farmer Center. </p>
-            </div>
-            <div className="button">
-            <button className="bttn"><Link to={'/selectionpage'}> GET STARTED </Link></button>
-            </div>
-        </div>
-        <div className="column-right">
-            <div className="icon-ecommerce">
-            <img src={logo2} alt="illustration" width={850} height={850}></img>
-            </div>
-        </div>
-        </> 
-    );
-
+const drawerWidth = 240;
+const classes = {
+    Header: {
+      fontFamily: 'Poppins',
+      fontWeight: 'bold',
+      color: '#31A05F',
+    },
+    container: {
+        margin: 10,
+    },
+    secbox:{
+        marginTop: 5,
+    },
+    Body: {
+        fontFamily: 'Poppins',
+        color: '#31A05F',
+        margin: 1,
+        fontSize: 29,
+      },
+    viewbutton: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold',
+        backgroundColor:'#31A05F',
+        marginLeft: 1,
+        marginTop: 1,
+        borderRadius: 10,
+        padding: 2,
+        "&:hover": {
+          color: '#FFFF',
+          backgroundColor: '#388E3C',
+        },
+    },
+    illustration:{
+        display: 'flex',
+        alignItems: 'right',
+        justifyContent: 'right',
+    },
 }
 
-export default LandingPage;
+export default function Landing() {
+    const navigate = useNavigate();
+  return (
+    <>
+    <ResponsiveAppBar/>
+    <Box sx={{ display: 'flex' }}>
+    <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
+        <Toolbar />
+        <Stack spacing = {1} direction='row'>
+            <Box sx={classes.container}>
+                <Typography variant='h2' sx={classes.Header}>
+                BE THE FIRST 
+                </Typography>
+                <Typography variant='h2' sx={classes.Header}>
+                TO CONNECT
+                </Typography>
+                <Typography variant='h2' sx={classes.Header}>
+                WITH US
+                </Typography>
+                <Box sx={classes.secbox}>
+                  <Typography sx={classes.Body}>
+                  AgriKOnnect is an e-commerce platform 
+                  </Typography>
+                  <Typography sx={classes.Body}>
+                  for farmers, consumers and agricultural organizations.
+                  </Typography>
+                  <Button variant="contained" onClick={() => navigate('/selectionpage')} sx={classes.viewbutton}>GET STARTED</Button>
+                </Box>
+            </Box>
+            <Box>
+            <Image sx= {classes.illustration} duration={0} src={illustrate} height= {"auto"} width= {"100%"}/>
+            </Box>
+        </Stack>
+      </Box>
+  </Box>
+    </>
+  )
+}

@@ -1,8 +1,89 @@
 import axios from 'axios';
 import React , {useState} from 'react';
-import {useNavigate, Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import swal from 'sweetalert';
-import loginpic from '../pages/images/login.png';
+import {Container,
+  FormHelperText,
+  OutlinedInput,
+} from '@mui/material'
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import illustration from '../assets/login.png';
+import { Image } from 'mui-image';
+import { top100Films as data } from '../data/sampleData';
+
+const theme = createTheme();
+
+const classes = {
+  registerbutton: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    backgroundColor: '#388E3C',
+    borderRadius: 5,
+    mt: 3, 
+    mb: 2,
+    "&:hover": {
+      color: '#FFFF',
+      backgroundColor: '#6FCF97',
+      borderColor: '#FFFF',
+    },
+  },
+  Header: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    color: '#388E3C',
+  },
+  SubHeader:{
+    fontFamily: 'Poppins',
+    color: '#6C6D6C',
+  },
+  TextField:{
+    color: '#388E3C'
+  },
+  Text:{
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    color: '#388E3C',
+    alignItems: 'center'
+  },
+  SubText:{
+    fontFamily: 'Poppins',
+    color: '#000000',
+  },
+  CustomTextField: {
+    "& .MuiInputLabel-root": {color: '#5F5B5B'},//styles the label
+    "& .MuiOutlinedInput-root": {
+      '&.Mui-focused fieldset': {
+        borderColor: 'green',
+      },
+      '& label.Mui-focused': {
+        color: 'grey',
+      },
+    }
+  },
+  CustomOutlineTextField: {
+    marginTop: 2,
+    "& .MuiOutlinedInput-root": {
+      '&.Mui-focused fieldset': {
+        borderColor: 'green',
+      },
+      '& label.Mui-focused': {
+        color: 'green',
+      },
+    }
+  },
+  Texts:{
+    color: '#5F645F',
+    fontFamily: 'Poppins',
+  }
+}
 
 const Register = () => {
 
@@ -42,11 +123,18 @@ const Register = () => {
       middlename: '',
       lastname: '',
       username: '',
-      orgName: '',
       email: '',
       mobilephone: '',
       password: '',
       verified: 'false',
+    });
+
+    const options = data.map((option) => {
+      const firstLetter = option.title[0].toUpperCase();
+      return {
+        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+        ...option,
+      };
     });
 
     const [proof, setProof] = useState([]);
@@ -70,18 +158,19 @@ const Register = () => {
       formData.append('middlename', userInput.middlename);
       formData.append('lastname', userInput.lastname);
       formData.append('username', userInput.username);
-      formData.append('orgName', userInput.orgName);
+      formData.append('email', userInput.email);
       formData.append('mobilephone', userInput.mobilephone);
       formData.append('password', userInput.password);
       formData.append('verified', userInput.verified);
 
-
-      axios.post(`http://localhost:8000/api/register`, formData).then(res=>{
+      axios.post(`http://localhost:8000/api/register`,formData,
+      {headers: { "Content-Type": "multipart/form-data" },})
+      .then(res=>{
         if(res.data.status === 200)
         {
             swal('Success', res.data.message,'success');
             setError([]);
-            history('/login-seller');
+            history('/seller/login');
         }
         else if(res.data.status === 422)
         {
@@ -92,108 +181,175 @@ const Register = () => {
     }
 
     return (
-    <div className="Parent">
-        <div className="child1">
-            <center>
-            <img className="login-flat" src={loginpic} alt="login" width={100} height={100}></img>
-            </center>
-        </div>
-        <div className="child2">
-            <center>
-             <div className="title-create">
-                <p>CREATE ACCOUNT</p>
-              </div>
-              <div className="title-content">
-                <p>Sign-up as a seller</p>
-              </div>
-              <form onSubmit={signUp} encType='multipart/form-data'>
-              <div className='input-create'>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="firstname" onChange={handleInput} value={userInput.firstname} type="text"/>
-                  <label>First name</label>
-                  <small className='text-danger'>{errorList.firstname}</small>
-                </div>
-              </div>
-                  <br></br>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="middlename" onChange={handleInput} value={userInput.middlename} type="text"/>
-                  <label>Middle name</label>
-                  <small className='text-danger'>{errorList.middlename}</small>
-                </div>
-              </div>
-                  <br></br>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="lastname" onChange={handleInput} value={userInput.lastname} type="text"/>
-                  <label>Last name</label>
-                  <small className='text-danger'>{errorList.lastname}</small>
-                </div>
-              </div>
-              <br></br>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="username" onChange={handleInput} value={userInput.username} type="text"/>
-                  <label>Username</label>
-                  <small className='text-danger'>{errorList.username}</small>
-                </div>
-              </div>
-              <br></br>
-              <div className="container">
-                <div className="material-textfield">
-                  <select name="orgName" id="orgName" onChange={handleInput} value={userInput.orgName} className="form-control">
-                      <option value="default" selected hidden>Select your Organization</option>
-                      <option value = "Tayabas Manananim">Tayabas Manananim</option>
-                      <option value = "KASAMA PGT">KASAMA PGT</option>
-                      <option value = "Tayabas Group of Plants">Tayabas Group of Plants</option>
-                  </select>
-                  <small className='text-danger'>{errorList.orgName}</small>
-                </div>
-              </div>
-              <br></br>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="image" onChange={handleImage} type="file"/>
-                  <label>Upload proof of your organization</label>
-                  <small className='text-danger'>{errorList.image}</small>
-                </div>
-              </div>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="email" onChange={handleInput} value={userInput.email} type="text"/>
-                  <label>Email (Optional)</label>
-                </div>
-              </div>
-              <br></br>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="mobilephone" onChange={handleInput} value={userInput.mobilephone} type="text"/>
-                  <label>Phone Number</label>
-                  <small className='text-danger'>{errorList.mobilephone}</small>
-                </div>
-              </div>
-              <br></br>
-              <div className="container">
-                <div className="material-textfield">
-                  <input placeholder=" " name="password" onChange={handleInput} value={userInput.password} type="password"/>
-                  <label>Password</label>
-                  <small className='text-danger'>{errorList.password}</small>
-                </div>
-              </div>
-              <br></br>
-              </div>
-              <div className="button">
-                <button type="submit" className="bttn-register"> REGISTER </button>
-              </div>
-              <div className='login-bttn'>
-                <p>Already have an account?<Link to ="/login-seller"><b><u>Login here</u></b></Link></p>
-              </div>
-              </form>
-              
-            </center>
-        </div>
-    </div>
+      <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: '#4DA351',
+            backgroundPosition: 'center',
+          }}
+        >
+          <Container maxWidth="sm" sx={{alignItems: 'center',marginTop:15}}>
+          <Image duration = {0} src={illustration} height= {'auto'} width= {'auto'}></Image>
+          </Container>
+        </Grid>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography sx={classes.Header} component="h1" variant="h5">
+              CREATE ACCOUNT
+            </Typography>
+            <Typography sx={classes.SubHeader} component="h1" variant="h6">
+              Sign-up as a seller
+            </Typography>
+              <Box component="form" onSubmit={signUp} sx={{ mt: 1 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="firstname"
+                  label="First Name"
+                  name="firstname"
+                  autoFocus
+                  onChange={handleInput} 
+                  value={userInput.firstname}
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.firstname}</small>
+                </TextField>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="middlename"
+                  label="Middle Name"
+                  name="middlename"
+                  autoFocus
+                  onChange={handleInput} 
+                  value={userInput.middlename}
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.middlename}</small>
+                </TextField>
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  id="lastname"
+                  label="Last Name"
+                  name="lastname"
+                  autoFocus
+                  onChange={handleInput} 
+                  value={userInput.lastname}
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.lastname}</small>
+                </TextField>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoFocus
+                  onChange={handleInput} 
+                  value={userInput.username}
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.username}</small>
+                </TextField>
+                <OutlinedInput
+                id="upload-script"
+                type="file"
+                fullWidth
+                name='image'
+                onChange={handleImage}
+                sx={classes.CustomOutlineTextField}
+                >
+                <small className='text-danger'>{errorList.image}</small>
+                </OutlinedInput>
+                <Typography sx={classes.Texts}>Upload a photo of you holding your VALID ID.</Typography>
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  onChange={handleInput} 
+                  value={userInput.email}
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.email}</small>
+                </TextField>
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  onChange={handleInput} 
+                  value={userInput.mobilephone}
+                  id="mobilephone"
+                  label="Phone Number"
+                  name="mobilephone"
+                  autoFocus
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.mobilephone}</small>
+                </TextField>
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  onChange={handleInput} 
+                  value={userInput.password}
+                  id="password"
+                  label="Password"
+                  name="password"
+                  type='password'
+                  autoFocus
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.password}</small>
+                </TextField>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={classes.registerbutton}
+                >
+                  REGISTER
+                </Button>
+              </Box>
+              <Box
+                sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                }}
+              >
+                <Typography sx={classes.SubText}>
+                Already have an account?
+                <Link sx={classes.Text} href="/seller/login" variant="body1">
+                          {" Login here"}
+                        </Link>
+                </Typography>
+            </Box>
+            </Box>
+      </Grid>
+    </Grid>
+  </ThemeProvider>
     );
 
 }

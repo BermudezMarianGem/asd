@@ -1,9 +1,127 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useLocation} from 'react-router';
-import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import NavbarCustomer from './NavbarCustomer';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Box, CssBaseline, Button, 
+  GlobalStyles,IconButton, Toolbar, Typography,
+  Paper, ButtonGroup, InputBase,styled, Grid, ListItemIcon, 
+  List, Stack, ListItemButton, ListItemText, Avatar, Divider} from "@mui/material";
+import CustomerResponsiveAppBar from '../components/CustomerResponsiveAppBar';
+import {useNavigate} from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Image } from 'mui-image';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+
+
+//Styles
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
+const classes = {
+  SubHeader: {
+    fontFamily: 'Poppins',
+    color: '#000000',
+    fontWeight: 'bold',
+  },
+  arrowback:{
+      color: '#111111',
+      width: 50,
+      height: 50,
+      marginTop: 5,
+  },
+  illustration:{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  name:{
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    color: '#000000',
+    marginLeft: 5,
+  },
+  rate:{
+      fontFamily: 'Poppins',
+      color: '#000000',
+      marginLeft: 1,
+  },
+  comment:{
+      fontFamily: 'Poppins',
+      fontWeight: 'bold',
+      color: '#000000',
+      marginLeft: 5,
+  },
+  productprice:{
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  SubmitButton: {
+      fontFamily: 'Poppins',
+      margin: 1,
+      color: "#FFFF",
+      backgroundColor: '#388E3C'
+  },
+  VisitButton:{
+      fontFamily: 'Poppins',
+      marginLeft: 15,
+      color: "#FFFF",
+      backgroundColor: '#388E3C',
+      "&:hover": {
+          color: '#FFFF',
+          backgroundColor: '#4DA351',
+         },
+  },
+  ViewAllButton:{
+      color: "#388E3C",
+      "&:hover": {
+          color: '#FFFF',
+          backgroundColor: '#4DA351',
+         },
+  },
+  tepper: {
+    marginTop: 1,
+    marginBottom: 1,
+  },
+  StepperPlusButton: {
+      backgroundColor: '#388E3C',
+      color: '#FFFF',
+      fontSize: 20,
+      "&:hover": {
+          color: '#FFFF',
+          backgroundColor: '#31A05F',
+      },
+  },
+  StepperMinusButton: {
+    backgroundColor: '#F22323',
+    color: '#FFFF',
+    fontSize: 20,
+    "&:hover": {
+        color: '#FFFF',
+        backgroundColor: '#FF7D7D',
+    },
+},
+  number: {
+      fontFamily: 'Poppins',
+      fontWeight: 'bold',
+      color: '#5F5B5B',
+      backgroundColor: '#FFF59D',
+  },
+  stepperlabel: {
+      fontFamily: 'Poppins',
+      fontSize: 15,
+      color: '#5F5B5B',
+      marginLeft: 1,
+      marginTop: 2,
+  },
+}
 
 function ProductDetails()
 {
@@ -16,11 +134,14 @@ function ProductDetails()
     const [loading, setLoading] = useState(true);
     const [value, setQuantity] = useState(1);
 
+    const navigate = useNavigate();
+
     const product_id = state.id;
     const fruits = {
       user_id: state.user_id,
       name: state.name,
       description: state.description,
+      seller_name: state.seller_name,
       price: state.price,
       quantity: state.quantity,
       category: state.category,
@@ -122,54 +243,102 @@ function ProductDetails()
     //loading ..
     if(loading)
       {
-          return <h4>Loading Fruit Details...</h4>
+          return <CircularProgress color="success" />
       }
       
     return(
       <>
-      
-      <NavbarCustomer/>
-      <Link to={'/fruits'} className="btn btn-danger btn-sm float-end"> BACK</Link>
-
-      <form onSubmit={submitProduct}>
-      <div className='py-3'>
-        <div className='container'>
-          <div className='row'>
-            <h4>Fruits Section</h4>
-            <div className='col-md-8'>
-              <h4>{fruits.name}</h4><p>by AgriKonnect</p>
-              <p>Category: {fruits.category}</p>
-              <p>Growing Method: {fruits.description}</p>
-              <p>Price: {fruits.price} </p>
-              <p>Quantity: {value}</p>
-              <div>
-                <p>Seller: {user.firstname}</p>
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-md-3 mt-3'>
-                <div className='input-group'>
-                  <button type='button'onClick={handleDecrement} className='input-group-text'>-</button>
-                  <div className='form-control text-center'>
-                    {value}
-                  </div>
-                  <button type='button' onClick={handleIncrement} className='input-group-text'>+</button>
-                </div>
-              </div>
-            </div>
-            <hr></hr>
-            <div className='col-md-3 mt-3'>
-              <button type="submit" className='btn btn-primary w-100' >Add to Basket</button><br></br>
-              <button type="submit" className='btn btn-primary w-100' >Buy Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      </form>
-      
-      </>
-      
+      <CssBaseline />
+        <GlobalStyles
+          styles={{
+            body: { backgroundColor: "#F4F4F4" },
+          }}
+      />
+      <CustomerResponsiveAppBar/>
+      <Box component="main" sx={{ p: 3 }}>
+            <Box
+            component="main"
+            sx={{ flexGrow: 1, p: 3 }}
+            >   
+                <Toolbar id="back-to-top-anchor"/>
+                <Stack direction='row'>
+                    <Button onClick={() => navigate('/fruits')}>
+                        <ArrowBackIcon sx = {classes.arrowback}/>
+                    </Button>
+                </Stack>
+                <Stack direction='column' spacing={2}>
+                    <Box sx = {classes.illustration}>
+                        <Image src={`http://localhost:8000/${fruits.image}`} duration = {0} height= {"50hv"} width= {"50hv"}></Image>
+                    </Box>    
+                    <Box sx = {classes.illustration}>
+                        <Typography variant='h5' sx={classes. SubHeader}>
+                        {fruits.name}
+                        </Typography>
+                    </Box>
+                    <Typography variant='h5' sx={classes. SubHeader}>
+                        Product Category:
+                    </Typography>
+                    <Typography variant='h6' sx={classes.productprice}>
+                      {fruits.category}
+                    </Typography>
+                    <Divider/>
+                    <Typography variant='h5' sx={classes.SubHeader}>
+                        Growing Method:
+                    </Typography>
+                    <Typography variant='h6' sx={classes.productprice}>
+                      {fruits.description}
+                    </Typography>
+                    <Divider/>
+                        <Typography variant='h5' sx={classes.SubHeader}>
+                            Price
+                        </Typography>
+                        <Typography variant='h6' sx={classes.productprice}>
+                          {fruits.price}
+                        </Typography>
+                        <Divider/>
+                        <Typography variant='h5' sx={classes.SubHeader}>
+                            Order Quantity
+                        </Typography>
+                        <Stack direction='row'>
+                              <ButtonGroup sx= {classes.stepper} size="small" aria-label="small button group">
+                              <Button sx={classes.StepperPlusButton}  onClick={handleIncrement}>+</Button>
+                                  <Button sx = {classes.number}> {value}</Button>
+                                  <Button sx={classes.StepperMinusButton} onClick={handleDecrement}>-</Button>
+                              </ButtonGroup>
+                              <Typography sx={classes.stepperlabel}> 
+                                  kg
+                              </Typography>
+                        </Stack>
+                    <Divider/>
+                    <Stack direction='row' spacing={5}>
+                        <Typography variant='h5' sx={classes.SubHeader}>
+                            Seller Name:
+                        </Typography>
+                        <Typography variant='h6' sx={classes.productprice}>
+                            {fruits.seller_name}
+                        </Typography>
+                    </Stack>
+                    <Stack direction='row' spacing={1}>
+                        <Typography variant='h5' sx={classes.productprice}>
+                            Reviews
+                        </Typography>
+                        <IconButton sx={classes.ViewAllButton} onClick={() => navigate('/allreviews')}>
+                        <ArrowForwardIosIcon/>
+                        </IconButton>
+                    </Stack>
+                    <List>
+                    </List>
+                    <Box sx = {classes.illustration}>
+                        <Stack direction='row'>
+                            <Button sx={classes.SubmitButton} aria-label="add" onClick={{submitProduct}}>
+                                ADD TO BASKET
+                            </Button>
+                        </Stack>
+                    </Box>
+                </Stack>
+            </Box>
+        </Box>
+      </> 
     );
 }
 export default ProductDetails;
