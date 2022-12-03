@@ -55,6 +55,7 @@ import VerifiedTable from './pages/VerifiedSeller';
 
 
 
+
 function App() 
 {
 
@@ -64,7 +65,6 @@ function App()
           <Routes> 
             
             <Route path="/" element={<LandingPage/>} />
-            
             <Route path="/selectionpage" element={<SelectionPage/>} />
 
             <Route path="/seller/login" element={<Login/>} />

@@ -12,6 +12,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import illustration from '../assets/login.png';
 import { Image } from 'mui-image';
 import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import swal from 'sweetalert';
 
 
 const theme = createTheme();
@@ -79,34 +81,51 @@ const classes = {
 
 const RegisterCustomer = () => {
 
-    const [firstname, setfirstname]=useState("")
-    const [middlename, setmiddlename]=useState("")
-    const [lastname, setlastname]=useState("")
-    const [username, setusername]=useState("")
-    const [email, setemail]=useState("")
-    const [password, setpassword]=useState("")
-    const history = useNavigate();
+  const [userInput, setUser] = useState({
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    username: '',
+    email: '',
+    password: '',
+  });
+    
+  const history = useNavigate();
+  const [errorList, setError] = useState([]);
 
 
-    async function customerSignup(e)
-    {
-        e.preventDefault();
-        let item={firstname, middlename, lastname, username, email, password}
+  const handleInput = (e) => {
+    e.persist();
+    setUser({...userInput, [e.target.name]:e.target.value});
+  }
 
-        let result = await fetch("http://localhost:8000/api/registerCustomer",
-        {
-            method: 'POST',
-            body: JSON.stringify(item),
-            headers:{
-                "Content-Type": 'application/json',
-                "Accept": 'application/json',
-            }
-        })
-        
-        result = await result.json()
-        localStorage.setItem("user-info", JSON.stringify(result))
-        history("/login-customer")
+  const customerSignup = (e) => {
+    e.preventDefault();
+
+    const info = {
+      firstname: userInput.firstname,
+      middlename: userInput.middlename,
+      lastname: userInput.lastname,
+      username: userInput.username,
+      email: userInput.email,
+      password: userInput.password,
     }
+
+    axios.post(`http://localhost:8000/api/registerCustomer`,info,
+      {headers: { "Content-Type": "multipart/form-data" },})
+      .then(res=>{
+        if(res.data.status === 200)
+        {
+            swal('Success', res.data.message,'success');
+            setError([]);
+            history('/login-customer');
+        }
+        else if(res.data.status === 422)
+        { 
+            setError(res.data.errors);
+        }
+      });
+  }
     return (
         <ThemeProvider theme={theme}>
         <Grid container component="main" sx={{ height: '100vh' }}>
@@ -150,70 +169,94 @@ const RegisterCustomer = () => {
                   id="firstname"
                   label="First Name"
                   name="firstname"
-                  value={firstname}
-                  onChange={(e)=>setfirstname(e.target.value)}
                   autoFocus
+                  error={errorList.firstname ? true : false}
+                  helperText={errorList.firstname? true : false}
+                  onChange={handleInput} 
+                  value={userInput.firstname}
                   sx={classes.CustomTextField}
-                />
+                >
+                </TextField>
+                <small className='text-danger'>{errorList.firstname}</small>
                 <TextField
                   margin="normal"
                   fullWidth
-                  value={middlename}
-                  onChange={(e)=>setmiddlename(e.target.value)} className="form-control"
                   id="middlename"
                   label="Middle Name"
                   name="middlename"
                   autoFocus
+                  error={errorList.middlename ? true : false}
+                  helperText={errorList.middlename? true : false}
+                  onChange={handleInput} 
+                  value={userInput.middlename}
                   sx={classes.CustomTextField}
-                />
+                >
+                </TextField>
+                <small className='text-danger'>{errorList.middlename}</small>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  value={lastname}
-                  onChange={(e)=>setlastname(e.target.value)} 
                   id="lastname"
                   label="Last Name"
                   name="lastname"
                   autoFocus
+                  error={errorList.lastname ? true : false}
+                  helperText={errorList.lastname? true : false}
+                  onChange={handleInput} 
+                  value={userInput.lastname}
                   sx={classes.CustomTextField}
-                />
+                >
+                </TextField>
+                <small className='text-danger'>{errorList.lastname}</small>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  value={username} 
-                  onChange={(e)=>setusername(e.target.value)}
                   id="username"
                   label="Username"
                   name="username"
                   autoFocus
+                  error={errorList.username ? true : false}
+                  helperText={errorList.username? true : false}
+                  onChange={handleInput} 
+                  value={userInput.username}
                   sx={classes.CustomTextField}
-                />
+                >
+                </TextField>
+                <small className='text-danger'>{errorList.username}</small>
                 <TextField
                   margin="normal"
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
-                  value={email}  
-                  onChange={(e)=>setemail(e.target.value)}
-                  autoComplete="email"
                   autoFocus
+                  error={errorList.email ? true : false}
+                  helperText={errorList.email? true : false}
+                  onChange={handleInput} 
+                  value={userInput.email}
                   sx={classes.CustomTextField}
-                />
+                >
+                </TextField>
+                <small className='text-danger'>{errorList.email}</small>
                 <TextField
                   sx={classes.CustomTextField}
                   margin="normal"
                   required
                   fullWidth
-                  value={password}  
-                  onChange={(e)=>setpassword(e.target.value)}
-                  name="password"
+                  onChange={handleInput} 
+                  value={userInput.password}
                   id="password"
                   label="Password"
+                  name="password"
                   type='password'
-                />
+                  autoFocus
+                  error={errorList.password ? true : false}
+                  helperText={errorList.password}
+                >
+                </TextField>
+                <small className='text-danger'>{errorList.password}</small>
                 <Button
                   type="submit"
                   fullWidth

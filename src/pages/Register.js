@@ -17,7 +17,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import illustration from '../assets/login.png';
 import { Image } from 'mui-image';
-import { top100Films as data } from '../data/sampleData';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup'
 
 const theme = createTheme();
 
@@ -128,15 +130,6 @@ const Register = () => {
       password: '',
       verified: 'false',
     });
-
-    const options = data.map((option) => {
-      const firstLetter = option.title[0].toUpperCase();
-      return {
-        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-        ...option,
-      };
-    });
-
     const [proof, setProof] = useState([]);
     const [errorList, setError] = useState([]);
 
@@ -173,12 +166,12 @@ const Register = () => {
             history('/seller/login');
         }
         else if(res.data.status === 422)
-        {
-            swal('All fields are required', 'error');
+        { 
             setError(res.data.errors);
         }
       });
     }
+
 
     return (
       <ThemeProvider theme={theme}>
@@ -224,12 +217,14 @@ const Register = () => {
                   label="First Name"
                   name="firstname"
                   autoFocus
+                  error={errorList.firstname ? true : false}
+                  helperText={errorList.firstname? true : false}
                   onChange={handleInput} 
                   value={userInput.firstname}
                   sx={classes.CustomTextField}
                 >
-                <small className='text-danger'>{errorList.firstname}</small>
                 </TextField>
+                <small className='text-danger'>{errorList.firstname}</small>
                 <TextField
                   margin="normal"
                   required
@@ -238,6 +233,8 @@ const Register = () => {
                   label="Middle Name"
                   name="middlename"
                   autoFocus
+                  error={errorList.middlename ? true : false}
+                  helperText={errorList.middlename? true : false}
                   onChange={handleInput} 
                   value={userInput.middlename}
                   sx={classes.CustomTextField}
@@ -251,6 +248,8 @@ const Register = () => {
                   label="Last Name"
                   name="lastname"
                   autoFocus
+                  error={errorList.lastname ? true : false}
+                  helperText={errorList.lastname? true : false}
                   onChange={handleInput} 
                   value={userInput.lastname}
                   sx={classes.CustomTextField}
@@ -265,23 +264,29 @@ const Register = () => {
                   label="Username"
                   name="username"
                   autoFocus
+                  error={errorList.username ? true : false}
+                  helperText={errorList.username? true : false}
                   onChange={handleInput} 
                   value={userInput.username}
                   sx={classes.CustomTextField}
                 >
-                <small className='text-danger'>{errorList.username}</small>
                 </TextField>
+                <small className='text-danger'>{errorList.username}</small>
+                <Typography sx={classes.Texts}>Upload a photo of you holding your VALID ID.</Typography>
                 <OutlinedInput
                 id="upload-script"
                 type="file"
                 fullWidth
                 name='image'
+                error={errorList.image ? true : false}
+                helperText={errorList.image? true : false}
                 onChange={handleImage}
                 sx={classes.CustomOutlineTextField}
                 >
-                <small className='text-danger'>{errorList.image}</small>
+                
                 </OutlinedInput>
-                <Typography sx={classes.Texts}>Upload a photo of you holding your VALID ID.</Typography>
+                <small className='text-danger'>{errorList.image}</small>
+               
                 <TextField
                   margin="normal"
                   fullWidth
@@ -290,12 +295,15 @@ const Register = () => {
                   id="email"
                   label="Email Address"
                   name="email"
+                  error={errorList.email ? true : false}
+                  helperText={errorList.email? true : false}
                   autoComplete="email"
                   autoFocus
                   sx={classes.CustomTextField}
                 >
-                <small className='text-danger'>{errorList.email}</small>
+               
                 </TextField>
+                <small className='text-danger'>{errorList.email}</small>
                 <TextField
                   margin="normal"
                   fullWidth
@@ -305,10 +313,13 @@ const Register = () => {
                   label="Phone Number"
                   name="mobilephone"
                   autoFocus
+                  error={errorList.mobilephone ? true : false}
+                  helperText={errorList.password}
                   sx={classes.CustomTextField}
                 >
-                <small className='text-danger'>{errorList.mobilephone}</small>
+               
                 </TextField>
+                <small className='text-danger'>{errorList.mobilephone}</small>
                 <TextField
                   margin="normal"
                   fullWidth
@@ -319,10 +330,13 @@ const Register = () => {
                   name="password"
                   type='password'
                   autoFocus
+                  error={errorList.password ? true : false}
+                  helperText={errorList.password}
                   sx={classes.CustomTextField}
                 >
-                <small className='text-danger'>{errorList.password}</small>
+                
                 </TextField>
+                <small className='text-danger'>{errorList.password}</small>
                 <Button
                   type="submit"
                   fullWidth

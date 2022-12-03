@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import NavbarCustomer from './NavbarCustomer';
 import { Box, CssBaseline, Button, 
@@ -14,6 +14,7 @@ import { Box, CssBaseline, Button,
   import { Image } from 'mui-image';
   import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
   import ScrollTop from '../components/ScrollToTop';
+import axios from 'axios';
   
   
   //Styles
@@ -124,6 +125,36 @@ const CustomerHomepage = (props) =>
     let customer = JSON.parse(localStorage.getItem('user-info'))
     localStorage.setItem('customer', JSON.stringify(customer))
     const navigate = useNavigate();
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+
+      axios.get(`http://localhost:8000/api/product-recommended`).then((res) => {
+        if (res.status === 200) {
+          setData(res.data.data);
+        }
+      });
+
+    },[]);
+
+    var recommendedProduct = "";
+
+    recommendedProduct = data.map((item, idx) => {
+      return(
+          <div className='col-md-3' key={idx}>
+              <div className='card'>
+                  <div className='card-body'>
+                      <Link to={`/vegetables/${item.order_name}`} state={item}>
+                      <h5>{item.order_name}</h5>
+                      </Link>
+                      <hr></hr>
+                      <p>Price: Php {item.order_price}.00</p>
+                  </div>
+              </div>
+          </div>
+      )
+    })
     return(
         <>
         <CssBaseline />
@@ -173,7 +204,7 @@ const CustomerHomepage = (props) =>
               Recommendations
             </Typography>
             <List>
-              
+                {recommendedProduct}
           </List>
           <ScrollTop {...props}>
             <Fab sx= {classes.ScrollTopButton} size="medium" aria-label="scroll back to top">

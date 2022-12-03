@@ -5,6 +5,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation } from "react-router-dom";
 import {
   Box,
+  Stack,
+  ButtonGroup,
   Button,
   Checkbox,
   Container,
@@ -101,6 +103,7 @@ function Basket() {
   const [cart, setCart] = useState(state);
   const [total, setTotal] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [value, setQuantity] = useState(1);
   // const [search, setSearch] = useState("")
   // const [productList, setProductList] = useState([])
   // const [results, setResults] = useState([])
@@ -226,7 +229,18 @@ function Basket() {
                   </Typography>
                 </Box>
               </Box>
-              <Box>{/* dito ilalagay ung pang toggle ng amount */}</Box>
+              <Box>
+                <Stack direction='row'>
+                    <ButtonGroup sx= {classes.stepper} size="small" aria-label="small button group">
+                        <Button sx={classes.StepperPlusButton}  onClick={handleIncrement}>+</Button>
+                        <Button sx = {classes.number}> {value}</Button>
+                        <Button sx={classes.StepperMinusButton} onClick={handleDecrement}>-</Button>
+                    </ButtonGroup>
+                    <Typography sx={classes.stepperlabel}> 
+                      kg
+                    </Typography>
+                </Stack>
+              </Box>
             </Paper>
           ))}
         </FormGroup>

@@ -12,7 +12,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Image } from 'mui-image';
 import illustration from '../pages/images/login.png';
 import Link from '@mui/material/Link';
-import FaceIcon from '@mui/icons-material/Face';
 
 const theme = createTheme();
 const classes = {
@@ -73,6 +72,7 @@ const Login = () =>
 {
     const [username, setUsername]=useState("");
     const [password, setPassword]=useState("");
+    const [errorList, setError] = useState([]);
     const history = useNavigate();
     
 
