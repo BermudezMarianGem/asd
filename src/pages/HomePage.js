@@ -98,7 +98,7 @@ const Homepage = (props) =>
   useEffect(() => {
       axios.get(`http://localhost:8000/api/recent/${user_id}`).then((res) => {
         if (res.status === 200) {
-          setSold(res.data.reviews);
+          setSold(res.data.delivered);
         }
       });
 

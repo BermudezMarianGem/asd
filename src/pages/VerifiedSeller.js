@@ -102,7 +102,7 @@ function VerifiedTable(props) {
         e.preventDefault();
 
         const sellerData = {
-            verified: 'true',
+            verified: 'false',
         }
 
         axios.post( `http://localhost:8000/api/update-verification/${users2[0].id}`, sellerData).then(res=> {

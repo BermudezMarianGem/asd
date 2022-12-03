@@ -71,7 +71,7 @@ const classes = {
             color: '#FFFF',
             backgroundColor: '#388E3C',
         },
-        margin: 10,
+        margin: 5,
     }
 }
 
@@ -206,7 +206,9 @@ const EditAccount = () => {
                                         <span className="text-danger">{errorInput.email}</span>
                                     </div>
                                     <div className="form-group mb-3">
-                                        <label>Barangay</label>
+                                    <Typography sx={classes.DetailsText}>
+                                       BARANGAY
+                                    </Typography>
                                         <select type="text" id="brgy" name="brgy" onChange={(e) => handleInput(e)} defaultValue={userInput.brgy} className="form-control">
                                             <option value="default" selected hidden>Select your Barangay</option>
                                             <option value = "Alitao">Alitao</option>
@@ -224,14 +226,68 @@ const EditAccount = () => {
                                             <option value = "Anos">Anos</option>
                                             <option value = "Ayaas">Ayaas</option>
                                             <option value = "Baguio">Baguio</option>
+                                            <option value = "Banilad">Banilad</option>
+                                            <option value = "Bukal Ibaba">Bukal Ibaba</option>
+                                            <option value = "Bukal Ilaya">Bukal Ilaya</option>
+                                            <option value = "Calantas">Calantas</option>
+                                            <option value = "Calantas">Calumpang</option>
+                                            <option value = "Calantas">Camaysa</option>
+                                            <option value = "Calantas">Dapdap</option>
+                                            <option value = "Domoit Kanluran">Domoit Kanluran</option>
+                                            <option value = "Domoit Silangan">Domoit Silangan</option>
+                                            <option value = "Gibanga">Gibanga</option>
+                                            <option value = "Ibas">Ibas</option>
+                                            <option value = "Ilasan Ibaba">Ilasan Ibaba</option>
+                                            <option value = "Ilasan Ilaya">Ilasan Ilaya</option>
+                                            <option value = "Ipilan">Ipilan</option>
+                                            <option value = "Isabang">Isabang</option>
+                                            <option value = "Katigan Kanluran">Katigan Kanluran</option>
+                                            <option value = "Katigan Silangan">Katigan Silangan</option>
+                                            <option value = "Lakawan">Lakawan</option>
+                                            <option value = "Lalo">Lalo</option>
+                                            <option value = "Lawigue">Lawigue</option>
+                                            <option value = "Lita">Lita</option>
+                                            <option value = "Malaoa">Malaoa</option>
+                                            <option value = "Masin">Masin</option>
+                                            <option value = "Mate">Mate</option>
+                                            <option value = "Mateuna">Mateuna</option>
+                                            <option value = "Mayowe">Mayowe</option>
+                                            <option value = "Nangka Ibaba">Nangka Ibaba</option>
+                                            <option value = "Nangka Ilaya">Nangka Ilaya</option>
+                                            <option value = "Opias">Opias</option>
+                                            <option value = "Palale Ibaba">Palale Ibaba</option>
+                                            <option value = "Palale Ilaya">Palale Ilaya</option>
+                                            <option value = "Palale Kanluran">Palale Kanluran</option>
+                                            <option value = "Palale Silangan">Palale Silangan</option>
+                                            <option value = "Pandakaki">Pandakaki</option>
+                                            <option value = "Pook">Pook</option>
+                                            <option value = "Potol">Potol</option>
+                                            <option value = "San Diego Zone I">San Diego Zone I</option>
+                                            <option value = "San Diego Zone II">San Diego Zone II</option>
+                                            <option value = "San Diego Zone III">San Diego Zone III</option>
+                                            <option value = "San Diego Zone IV">San Diego Zone IV</option>
+                                            <option value = "San Diego Zone IV">San Diego Zone IV</option>
+                                            <option value = "San Isidro Zone I">San Isidro Zone I</option>
+                                            <option value = "San Isidro Zone II">San Isidro Zone II</option>
+                                            <option value = "San Isidro Zone III">San Isidro Zone III</option>
+                                            <option value = "San Isidro Zone IV">San Isidro Zone IV</option>
+                                            <option value = "San Isidro Zone IV">San Isidro Zone IV</option>
+                                            <option value = "San Roque Zone I">San Roque Zone I</option>
+                                            <option value = "San Roque Zone II">San Roque Zone II</option>
+                                            <option value = "Talolong">Talolong</option>
+                                            <option value = "Tamlong">Tamlong</option>
+                                            <option value = "Tongko">Tongko</option>
+                                            <option value = "Valencia">Valencia</option>
+                                            <option value = "Wakas">Wakas</option>
                                         </select>
                                         <span className="text-danger">{errorInput.brgy}</span>
                                     </div>
                                     
-
+                                    <Stack>
                                     <Button sx={classes.EditButton} aria-label="add" onClick={updateUser}>
                                         SAVE CHANGES
                                     </Button>
+                                    </Stack>
                                 </form>       
              </Stack>
              </Box>

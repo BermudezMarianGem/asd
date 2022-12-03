@@ -190,8 +190,8 @@ function OngoingPage(props)
                             <StyledTableCell align="right">{item.contactNo}</StyledTableCell>
                             <StyledTableCell align="right">{item.shippingaddress}</StyledTableCell>
                             <StyledTableCell align="right">{item.modeofpayment}</StyledTableCell>
-                            <StyledTableCell align="right"><Button variant="contained" sx={classes.ViewButton} onClick={() => navigate(`/to-ship-details/${item.order_id}`,{state:item})}>
-                            Pending....</Button></StyledTableCell>
+                            <StyledTableCell align="right"><Button variant="contained" sx={classes.ViewButton}>
+                            Pending</Button></StyledTableCell>
                     </StyledTableRow>
                 )
             });
@@ -230,7 +230,6 @@ function OngoingPage(props)
                             <StyledTableCell align="right">Shipping Address</StyledTableCell>
                             <StyledTableCell align="right">Mode of Payment</StyledTableCell>
                             <StyledTableCell align="right">Shipping Status</StyledTableCell>
-                            <StyledTableCell align="right"></StyledTableCell>
                             </TableRow>
                         </TableHead>
                             {showOngoingOrders}
