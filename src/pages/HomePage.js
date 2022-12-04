@@ -98,7 +98,7 @@ const Homepage = (props) =>
   useEffect(() => {
       axios.get(`http://localhost:8000/api/recent/${user_id}`).then((res) => {
         if (res.status === 200) {
-          setSold(res.data.delivered);
+          setSold(res.data.sellerdelivered);
         }
       });
 
@@ -113,7 +113,7 @@ const Homepage = (props) =>
           <Stack direction={{ xs: "column-reverse"}}  spacing={10}>
             <Item key={idx}>
               <ListItem>
-                <ListItemText primary={item.order_name} 
+                <ListItemText primary={item.order_name} secondary={item.order_price}
                 primaryTypographyProps={{ style: classes.producttitle }}
                 />
               </ListItem>

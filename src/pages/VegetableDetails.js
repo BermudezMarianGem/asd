@@ -143,6 +143,7 @@ function VegetableDetails()
   const description = state.description;
   const price = state.price;
   const category = state.category;
+  const qty = state.quantity
 
   useEffect(() => {
 
@@ -185,7 +186,8 @@ function VegetableDetails()
         fruits_qty: value,  
         name: state.name,
         price: state.price,
-        customerId:JSON.parse(localStorage.getItem('customer')).id
+        customerId:JSON.parse(localStorage.getItem('customer')).id,
+        image: state.image,
       }
 
      axios.post(`http://localhost:8000/api/addtoCart`, data).then(res=>{
@@ -232,7 +234,7 @@ function VegetableDetails()
             >   
                 <Toolbar id="back-to-top-anchor"/>
                 <Stack direction='row'>
-                    <Button onClick={() => navigate('/customer-homepage')}>
+                    <Button onClick={() => navigate('/vegetables')}>
                         <ArrowBackIcon sx = {classes.arrowback}/>
                     </Button>
                 </Stack>
@@ -264,6 +266,12 @@ function VegetableDetails()
                         </Typography>
                         <Typography variant='h6' sx={classes.productprice}>
                             {price}
+                        </Typography>
+                        <Typography variant='h5' sx={classes.SubHeader}>
+                            Available Stocks
+                        </Typography>
+                        <Typography variant='h6' sx={classes.productprice}>
+                            {qty}
                         </Typography>
                         <Divider/>
                         <Typography variant='h5' sx={classes.SubHeader}>

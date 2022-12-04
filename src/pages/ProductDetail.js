@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import { useLocation} from 'react-router';
+import { useLocation } from 'react-router';
 import swal from 'sweetalert';
 import CircularProgress from '@mui/material/CircularProgress';
+
 import { Box, CssBaseline, Button, 
   GlobalStyles,IconButton, Toolbar, Typography,
   Paper, ButtonGroup, InputBase,styled, Grid, ListItemIcon, 
@@ -123,79 +124,76 @@ const classes = {
   },
 }
 
+
 function ProductDetails()
 {
-    let user = JSON.parse(localStorage.getItem('user-info'))
-    localStorage.setItem('user', JSON.stringify(user))
+   
+  const location = useLocation();
+  const state = location.state;
+  const [review, setReview] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [value, setQuantity] = useState(1);
 
-    const location = useLocation();
-    const state = location.state;
-    const [data, setData] = useState(state);
-    const [loading, setLoading] = useState(true);
-    const [value, setQuantity] = useState(1);
+  const product_id = state.id;
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const name = state.name;
+  const image = state.image;
+  const seller = state.seller_name;
+  const description = state.description;
+  const price = state.price;
+  const category = state.category;
+  const qty = state.quantity
 
-    const product_id = state.id;
-    const fruits = {
-      user_id: state.user_id,
-      name: state.name,
-      description: state.description,
-      seller_name: state.seller_name,
-      price: state.price,
-      quantity: state.quantity,
-      category: state.category,
-    }
-   // let x = fruits.user_id;
+  useEffect(() => {
+
+      axios.get(`http://localhost:8000/api/viewfruit/${product_id}`).then((res) => {
+        if (res.status === 200) {
+          
+          setReview(res.data.reviews[0]);
+          setLoading(false);
+  
+        }
+        console.log(res.data.reviews)
+
+      });
+      
+    },[product_id]);
+
     
-    
-    // use effect get products information
-    useEffect(() => {
-        axios.get(`http://localhost:8000/api/viewfruit/${product_id}`, fruits).then((res) => {
-          if (res.status === 200) {
-            setData(res.data.products);
-            setLoading(false);
-          }
-        });
-        console.log(data)
-        
-      },);
-    
-      //global.uid = fruits.user_id;
-      //global.name = fruits.name
-    // quantity increment and decrement
+
     const handleDecrement = () => {
       if(value > 1)
-        {
-          setQuantity(prevCount => prevCount - 1);
-        }
-      
+      {
+        setQuantity(prevCount => prevCount - 1);
       }
+      
+    }
 
     const handleIncrement = () => {
       if(value < 10)
-        {
-          setQuantity(prevCount => prevCount + 1);
-        }
-      
+      {
+        setQuantity(prevCount => prevCount + 1);
       }
-
+      
+    }
     const submitProduct = (e) => {
       e.preventDefault();
 
       const data = {
-        fruits_id: state.id,
+        product_id: product_id,
+        seller_id: state.user_id,
         fruits_qty: value,  
         name: state.name,
         price: state.price,
-        customerId:JSON.parse(localStorage.getItem('customer')).id
+        customerId:JSON.parse(localStorage.getItem('customer')).id,
+        image: state.image,
       }
 
-      axios.post(`http://localhost:8000/api/addtoCart`, data).then(res=>{
+     axios.post(`http://localhost:8000/api/addtoCart`, data).then(res=>{
         if(res.data.status === 201)
         {
           swal("Success",res.data.message,"success");
-          
         }
         else if(res.data.status === 409)
         {
@@ -212,40 +210,14 @@ function ProductDetails()
       });
 
     }
-    
-    // for submittiob of products
-    
-    /*const submitProduct = (e) => {
-      e.preventDefault();
-
-      const items = JSON.parse(localStorage.getItem('customer'));
-
-      console.log('quote')
-      const datas = {
-        firstname: items.firstname,
-        middlename: items.middlename,
-        lastname: items.lastname,
-        username: items.username,
-        mobilephone: items.mobilephone,
-        email: items.email,
-        cart: items.cart,
-        address: items.address,
-      }
-
-      axios.patch(`http://localhost:8000/api/addtoCart`, datas).then((res) => {
-          setData(res.data.products);
-          setLoading(false);
-      });
-      console.log(datas)
-
-    }*/
-
-    //loading ..
-    if(loading)
-      {
-          return <CircularProgress color="success" />
-      }
       
+
+      if(loading)
+    {
+        return <CircularProgress color="success" />
+    }
+    
+
     return(
       <>
       <CssBaseline />
@@ -268,32 +240,38 @@ function ProductDetails()
                 </Stack>
                 <Stack direction='column' spacing={2}>
                     <Box sx = {classes.illustration}>
-                        <Image src={`http://localhost:8000/${fruits.image}`} duration = {0} height= {"50hv"} width= {"50hv"}></Image>
+                        <Image src={`http://localhost:8000/${image}`} duration = {0} height= {"50hv"} width= {"50hv"}></Image>
                     </Box>    
                     <Box sx = {classes.illustration}>
                         <Typography variant='h5' sx={classes. SubHeader}>
-                        {fruits.name}
+                        {name}
                         </Typography>
                     </Box>
                     <Typography variant='h5' sx={classes. SubHeader}>
                         Product Category:
                     </Typography>
                     <Typography variant='h6' sx={classes.productprice}>
-                      {fruits.category}
+                        {category}
                     </Typography>
                     <Divider/>
                     <Typography variant='h5' sx={classes.SubHeader}>
                         Growing Method:
                     </Typography>
                     <Typography variant='h6' sx={classes.productprice}>
-                      {fruits.description}
+                      {description}
                     </Typography>
                     <Divider/>
                         <Typography variant='h5' sx={classes.SubHeader}>
                             Price
                         </Typography>
                         <Typography variant='h6' sx={classes.productprice}>
-                          {fruits.price}
+                            {price}
+                        </Typography>
+                        <Typography variant='h5' sx={classes.SubHeader}>
+                            Available Stock
+                        </Typography>
+                        <Typography variant='h6' sx={classes.productprice}>
+                            {qty}
                         </Typography>
                         <Divider/>
                         <Typography variant='h5' sx={classes.SubHeader}>
@@ -315,22 +293,34 @@ function ProductDetails()
                             Seller Name:
                         </Typography>
                         <Typography variant='h6' sx={classes.productprice}>
-                            {fruits.seller_name}
+                            {seller}
                         </Typography>
                     </Stack>
                     <Stack direction='row' spacing={1}>
                         <Typography variant='h5' sx={classes.productprice}>
                             Reviews
                         </Typography>
-                        <IconButton sx={classes.ViewAllButton} onClick={() => navigate('/allreviews')}>
-                        <ArrowForwardIosIcon/>
-                        </IconButton>
+                        <Box sx={{ width: '100%', marginBottom: 1 }}>
+                                <Stack direction={{ xs: "column-reverse"}}  spacing={10}>
+                                <Item>
+                                    <ListItemButton>
+                                      <Typography sx={classes.name}>
+                                      {review?.firstname} {review?.middlename} {review?.lastname}: 
+                                      </Typography>
+                                    <ListItemText primary={review?.review} 
+                                    primaryTypographyProps={{ style: classes.name }}
+                                    />
+                                    </ListItemButton>
+                                </Item>
+                                </Stack>
+                            </Box>
+
                     </Stack>
                     <List>
                     </List>
                     <Box sx = {classes.illustration}>
                         <Stack direction='row'>
-                            <Button sx={classes.SubmitButton} aria-label="add" onClick={{submitProduct}}>
+                            <Button sx={classes.SubmitButton} aria-label="add" onClick={submitProduct}>
                                 ADD TO BASKET
                             </Button>
                         </Stack>
@@ -338,7 +328,8 @@ function ProductDetails()
                 </Stack>
             </Box>
         </Box>
-      </> 
+      </>
+      
     );
 }
 export default ProductDetails;

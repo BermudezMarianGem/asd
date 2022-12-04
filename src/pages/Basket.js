@@ -213,7 +213,7 @@ function Basket() {
               <Box sx={{ display: "flex", width: "50%", margin: 2 }}>
                 <Box sx={{ display: "flex" }}>
                   <Checkbox onClick={() => addToSelected(item)} />
-                  <Image src="" />
+                  <Image width="120px" alt={item.image} duration={0} src={`http://localhost:8000/${item.image}`}/>
                 </Box>
                 <Box
                   sx={{
@@ -232,9 +232,9 @@ function Basket() {
               <Box>
                 <Stack direction='row'>
                     <ButtonGroup sx= {classes.stepper} size="small" aria-label="small button group">
-                        <Button sx={classes.StepperPlusButton}  onClick={handleIncrement}>+</Button>
-                        <Button sx = {classes.number}> {value}</Button>
-                        <Button sx={classes.StepperMinusButton} onClick={handleDecrement}>-</Button>
+                        <Button sx={classes.StepperPlusButton}  onClick={() => handleIncrement(item.id)}>+</Button>
+                        <Button sx = {classes.number}> {item.fruits_qty}</Button>
+                        <Button sx={classes.StepperMinusButton} onClick={() => handleDecrement(item.id)}>-</Button>
                     </ButtonGroup>
                     <Typography sx={classes.stepperlabel}> 
                       kg

@@ -6,15 +6,16 @@ import { Box, CssBaseline, Button,
     Paper, Fab, InputBase,styled, Grid, ListItemIcon, 
     List, Stack, ListItemButton, ListItemText,
 } from "@mui/material";
-  import CustomerResponsiveAppBar from '../components/CustomerResponsiveAppBar';
-  import SearchIcon from '@mui/icons-material/Search';
-  import {useNavigate} from 'react-router-dom';
-  import vegetables from '../assets/vegetables.png';
-  import fruits from '../assets/fruit.png';
-  import { Image } from 'mui-image';
-  import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-  import ScrollTop from '../components/ScrollToTop';
+import CustomerResponsiveAppBar from '../components/CustomerResponsiveAppBar';
+import SearchIcon from '@mui/icons-material/Search';
+import {useNavigate} from 'react-router-dom';
+import vegetables from '../assets/vegetables.png';
+import fruits from '../assets/fruit.png';
+import { Image } from 'mui-image';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import ScrollTop from '../components/ScrollToTop';
 import axios from 'axios';
+import * as BsIcon from "react-icons/bs";
   
   
   //Styles
@@ -142,17 +143,29 @@ const CustomerHomepage = (props) =>
 
     recommendedProduct = data.map((item, idx) => {
       return(
-          <div className='col-md-3' key={idx}>
-              <div className='card'>
-                  <div className='card-body'>
-                      <Link to={`/vegetables/${item.order_name}`} state={item}>
-                      <h5>{item.order_name}</h5>
-                      </Link>
-                      <hr></hr>
-                      <p>Price: Php {item.order_price}.00</p>
-                  </div>
-              </div>
-          </div>
+        <Box sx={{ width: '100%', marginBottom: 1 }}>
+              <Stack direction={{ xs: "column-reverse"}}  spacing={10}>
+                  <Item key={idx}>
+                      <ListItemButton onClick={() => navigate(`/recommend/details`,{state:item})} alignItems="flex-start">
+                        <ListItemText primary={item.order_name} secondary={<Typography
+                          sx={{ display: 'inline',
+                          fontFamily: 'Poppins',
+                          fontWeight: 'bold',
+                          color: '#000000',}}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          Price: Php {item.order_price}.00
+                        </Typography>
+                        } 
+                        primaryTypographyProps={{ style: classes.producttitle }}
+                        secondaryTypographyProps={{style: classes.productprice }}/>
+                    </ListItemButton>
+                  </Item>
+              </Stack>
+          </Box>
+          
       )
     })
     return(

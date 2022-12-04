@@ -5,6 +5,7 @@ import swal from "sweetalert";
 import { Box, CssBaseline, Button, 
   GlobalStyles,Toolbar, Typography,
    Stack,} from "@mui/material";
+import { Image } from 'mui-image';
 import CustomerResponsiveAppBar from '../components/CustomerResponsiveAppBar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -89,10 +90,9 @@ function Checkout() {
   const location = useLocation();
   const state = location.state;
   const history = useNavigate();
-  const [loading, setLoading] = useState(true);
-  //const [cart, setCart] = useState(state);
 
   console.log(customer);
+
 
   const cartId = state.selectedItems[0].id;
   const sellerId = state.selectedItems[0].seller_id;
@@ -103,6 +103,7 @@ function Checkout() {
   const price = state.selectedItems[0].price;
   const shippingfee = state.shippingFee;
   const grandtotal = (state.shippingFee + state.total);
+  const image = state.selectedItems[0].image;
 
   console.log(price)
   const [checkoutInput, setCheckoutInput] = useState({
@@ -152,6 +153,7 @@ function Checkout() {
       mobilephone: checkoutInput.mobilephone,
       modeofpayment: checkoutInput.modeofpayment,
       customerId: customer.id,
+      image: image,
 
     };
 
@@ -176,18 +178,23 @@ function Checkout() {
   var checkOutDetails = "";
   checkOutDetails = state.selectedItems.map( (item, idx) => {
     return(
-      <>
+      <> 
+      <Box sx = {classes.illustration}>
+      <Image width="120px" alt={item.image} duration={0} src={`http://localhost:8000/${item.image}`}/>
+      </Box>
       <Box sx = {classes.illustration}>
         <Typography variant='h5' sx={classes. SubHeader}>
         {item.name}
         </Typography>
-        <Typography variant='h5' sx={classes. SubHeader}>
-        {item.fruits_qty}
+        </Box>
+        <Box sx = {classes.illustration}>
+        <Typography variant='o' sx={classes. SubHeader}>
+        Quantity: {item.fruits_qty}
         </Typography>
         </Box>
         <Box sx = {classes.illustration}>
-        <Typography variant='h5' sx={classes. SubHeader}>
-        {item.price}
+        <Typography variant='p' sx={classes. SubHeader}>
+        Price: Php {item.price}.00
         </Typography>
       </Box>
       </>
@@ -254,7 +261,7 @@ function Checkout() {
             >   
                 <Toolbar id="back-to-top-anchor"/>
                 <Stack direction='row'>
-                    <Button onClick={() => history('/customer-homepage')}>
+                    <Button onClick={() => history('/basket')}>
                         <ArrowBackIcon sx = {classes.arrowback}/>
                     </Button>
                     <Typography variant='h3' sx={classes.Header}>
@@ -288,13 +295,10 @@ function Checkout() {
                   placeholder="Choose mode of payment"
                   >
                   <option value="default" selected hidden>
-                  Select Payment Method
+                  Payment Method
                   </option>
                   <option value="Cash on Delivery">
                       Cash on Delivery (pay when you order)
-                  </option>
-                  <option value="Online Payment">
-                      Online Payment (Gcash)
                   </option>
                   </select>
                   <small className="text-danger">

@@ -35,10 +35,10 @@ import SearchProduct from './pages/SearchProduct';
 import ProductDetails from './pages/ProductDetail';
 import VegetableDetails from './pages/VegetableDetails';
 import ToReviewPage from './pages/ToReview';
+import RecommendDetails from './pages/RecommendDetails';
 
 //Admin Account
 import LoginAdmin from './pages/AdminLogin';
-import AdminTable from './pages/Admin';
 import EditSeller from './pages/EditSeller';
 import EditUserImage from './pages/EditUserImage';
 import Checkout from './pages/Checkout';
@@ -101,6 +101,7 @@ function App()
             <Route path="/edit-customeraccount" element={<EditCustomerAccount/>}/>
 
             <Route path="/homepage" element={<Homepage/>} />
+            <Route path='/recommend/details' element={<RecommendDetails/>}/>
             <Route path="/account" element={<AccountPage/>} />
             <Route path="/edit-userprofile" element={<EditUserImage/>} />
             <Route path="/accountview" element={<ViewAccount/>} />

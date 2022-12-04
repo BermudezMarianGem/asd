@@ -102,16 +102,24 @@ const RegisterCustomer = () => {
   const customerSignup = (e) => {
     e.preventDefault();
 
-    const info = {
+    const formData = new FormData();
+    formData.append('firstname', userInput.firstname);
+    formData.append('middlename', userInput.middlename);
+    formData.append('lastname', userInput.lastname);
+    formData.append('username', userInput.username);
+    formData.append('email', userInput.email);
+    formData.append('password', userInput.password);
+
+    /*const info = {
       firstname: userInput.firstname,
       middlename: userInput.middlename,
       lastname: userInput.lastname,
       username: userInput.username,
       email: userInput.email,
       password: userInput.password,
-    }
+    }*/
 
-    axios.post(`http://localhost:8000/api/registerCustomer`,info,
+    axios.post(`http://localhost:8000/api/registerCustomer`,formData,
       {headers: { "Content-Type": "multipart/form-data" },})
       .then(res=>{
         if(res.data.status === 200)

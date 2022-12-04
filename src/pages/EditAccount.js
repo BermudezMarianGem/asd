@@ -110,7 +110,7 @@ const EditAccount = () => {
             {
                 swal("Success",res.data.message,"success");
                 setError([]);
-                history('/accountview');
+                history('/account');
             }
             else if(res.data.status === 422)
             {
@@ -120,7 +120,7 @@ const EditAccount = () => {
             else if(res.data.status === 404)
             {
                 swal("Error",res.data.message,"error");
-                history('/accountview');
+                history('/account');
             }
         });
     }

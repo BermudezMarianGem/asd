@@ -113,6 +113,7 @@ function ToPay(props)
                 <Stack direction={{ xs: "column-reverse"}}  spacing={10}>
                   <Item key={idx}>
                       <ListItem alignItems="flex-start">
+                      <Image width="120px" alt={item.image} duration={0} src={`http://localhost:8000/${item.image}`}/>
                       <ListItemText primary={item.order_name} secondary={<Typography
                       sx={{ display: 'inline',
                       fontFamily: 'Poppins',
