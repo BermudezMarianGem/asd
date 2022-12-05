@@ -150,7 +150,7 @@ function VegetableDetails()
       axios.get(`http://localhost:8000/api/viewvegetable/${product_id}`).then((res) => {
         if (res.status === 200) {
           
-          setReview(res.data.reviews[0]);
+          setReview(res.data.reviews);
           setLoading(false);
   
         }
@@ -216,6 +216,25 @@ function VegetableDetails()
     {
         return <CircularProgress color="success" />
     }
+    var reviewList = "";
+    reviewList = review.map((item, idx) => {
+      return(
+        <Box sx={{ width: '100%', marginBottom: 1 }}>
+        <Stack direction={{ xs: "column-reverse"}}  spacing={10}>
+        <Item key = {idx}>
+            <ListItemButton>
+              <Typography sx={classes.name}>
+              {item.firstname} {item.middlename} {item.lastname}: 
+              </Typography>
+            <ListItemText primary={item.review} 
+            primaryTypographyProps={{ style: classes.name }}
+            />
+            </ListItemButton>
+        </Item>
+        </Stack>
+    </Box>
+      ) 
+    })
     
 
     return(
@@ -300,23 +319,9 @@ function VegetableDetails()
                         <Typography variant='h5' sx={classes.productprice}>
                             Reviews
                         </Typography>
-                        <Box sx={{ width: '100%', marginBottom: 1 }}>
-                                <Stack direction={{ xs: "column-reverse"}}  spacing={10}>
-                                <Item>
-                                    <ListItemButton>
-                                      <Typography sx={classes.name}>
-                                      {review?.firstname} {review?.middlename} {review?.lastname}: 
-                                      </Typography>
-                                    <ListItemText primary={review?.review} 
-                                    primaryTypographyProps={{ style: classes.name }}
-                                    />
-                                    </ListItemButton>
-                                </Item>
-                                </Stack>
-                            </Box>
-
                     </Stack>
                     <List>
+                    {reviewList}
                     </List>
                     <Box sx = {classes.illustration}>
                         <Stack direction='row'>

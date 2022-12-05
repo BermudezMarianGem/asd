@@ -52,7 +52,7 @@ import OrderReviewPage from './pages/Review';
 import ReviewForm from './pages/CustomerReviewPage';
 import UnverifiedTable from './pages/UnverifiedSeller';
 import VerifiedTable from './pages/VerifiedSeller';
-
+import ReportTable from './pages/ReportPage';
 
 
 
@@ -101,6 +101,7 @@ function App()
             <Route path="/edit-customeraccount" element={<EditCustomerAccount/>}/>
 
             <Route path="/homepage" element={<Homepage/>} />
+            <Route path="/report" element={<ReportTable/>} />
             <Route path='/recommend/details' element={<RecommendDetails/>}/>
             <Route path="/account" element={<AccountPage/>} />
             <Route path="/edit-userprofile" element={<EditUserImage/>} />

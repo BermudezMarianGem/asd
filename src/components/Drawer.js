@@ -16,6 +16,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import WindowIcon from '@mui/icons-material/Window';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import PersonIcon from '@mui/icons-material/Person';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import { Image } from 'mui-image';
 import logo from '../assets/logo.png';
 import {useNavigate} from 'react-router-dom';
@@ -65,6 +66,11 @@ function ResponsiveDrawer(props) {
       text: "TRANSACTION",
       path: '/transaction',
       icon: <SyncAltIcon sx={iconic}/>,
+    },
+    {
+      text: "REPORT",
+      path: '/report',
+      icon: <AssessmentIcon sx={iconic}/>,
     },
     {
       text: "ACCOUNT",

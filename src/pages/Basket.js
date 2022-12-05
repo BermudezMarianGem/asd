@@ -93,6 +93,7 @@ const classes = {
   }
 
 const SHIPPING_FEE = 50;
+const convience_fee = 5;
 
 function Basket() {
   const navigate = useNavigate();
@@ -192,7 +193,7 @@ function Basket() {
 
   const handleCheckout = () => {
     console.log(cart);
-    navigate(`/checkout/${customer.id}`, { state:{ shippingFee: SHIPPING_FEE, selectedItems, total }});
+    navigate(`/checkout/${customer.id}`, { state:{ shippingFee: SHIPPING_FEE, convience: convience_fee, selectedItems, total }});
   };
 
   const getBasketContent = () => {

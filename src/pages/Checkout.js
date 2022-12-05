@@ -91,7 +91,7 @@ function Checkout() {
   const state = location.state;
   const history = useNavigate();
 
-  console.log(customer);
+  console.log(state);
 
 
   const cartId = state.selectedItems[0].id;
@@ -102,7 +102,8 @@ function Checkout() {
   const total_price = state.total;
   const price = state.selectedItems[0].price;
   const shippingfee = state.shippingFee;
-  const grandtotal = (state.shippingFee + state.total);
+  const conviencefee = state.convience;
+  const grandtotal = (state.shippingFee + state.total + state.convience);
   const image = state.selectedItems[0].image;
 
   console.log(price)
@@ -145,6 +146,7 @@ function Checkout() {
       product_id: productId,
       product_qty: productQty,
       shippingfee: shippingfee,
+      conviencefee: conviencefee,
       total_price: grandtotal,
       firstname: customer.firstname,
       middlename: customer.middlename,
@@ -319,6 +321,7 @@ function Checkout() {
                   </small>
                   </div>
                   <p>Shipping Fee: Php {shippingfee}.00</p>
+                  <p>Convience Fee: Php {conviencefee}.00</p>
                   <p>Subtotal: Php {total_price}.00</p>
                   <p>Total (including shipping fee): Php {grandtotal}.00</p>
                   <hr />
