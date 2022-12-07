@@ -197,7 +197,8 @@ function ViewProduct(props) {
                         <ListItem>
                         <ListItemText primaryTypographyProps={classes.ProductTitle} 
                         secondaryTypographyProps={classes.QuantityTitle}
-                        primary={item.name} secondary={item.category}/>
+                        primary={item.name} secondary={item.category} />
+                        <h5>Available Stocks: {item.quantity}</h5>
                         </ListItem>
                         <ListItem sx={classes.positionButton}>
                             <Button variant="contained" onClick={() => navigate(`/products/edit/${item.id}`,{state:item})} sx={classes.EditButton}>EDIT</Button>

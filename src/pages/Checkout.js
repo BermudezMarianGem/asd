@@ -154,7 +154,7 @@ function Checkout() {
       shippingaddress: checkoutInput.shippingaddress,
       mobilephone: checkoutInput.mobilephone,
       modeofpayment: checkoutInput.modeofpayment,
-      customerId: customer.id,
+      user_id: customer.id,
       image: image,
 
     };

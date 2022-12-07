@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect } from 'react';
 import axios from "axios";
 import * as d3 from 'd3';
+
 function LINECHART(){
 
     let user = JSON.parse(localStorage.getItem('user-info'))
@@ -9,10 +10,13 @@ function LINECHART(){
     const id = user.id;
 
     const [data, setData] = useState([""]);
+    const [date, setDate] = useState([""]);
     const svgRef = useRef();
 
     var value = [];
+    var value_  = [];
     var x = [];
+    var y = [];
     value = data.map( (item, idx) => {
         return(
             <div key={idx}> 
@@ -21,7 +25,14 @@ function LINECHART(){
         )
     });
 
-    console.log(x)
+    value_ = date.map( (item, idx) => {
+        return(
+            <div key={idx}> 
+                {y.push(item.order_qty)}
+            </div>
+        )
+    });
+
 
     useEffect(() => {
 
@@ -30,11 +41,17 @@ function LINECHART(){
               setData(res.data.data);
             }
           });
+        
+        axios.get(`http://localhost:8000/api/date/${id}`).then((res) => {
+        if (res.status === 200) {
+            setDate(res.data.date);
+        }
+        });
 
     }, [id])
     const w = 500
         const h = 600
-        const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+        const margin = { top: 30, right: 30, bottom: 30, left: 40 };
         const svg = d3.select(svgRef.current)
             .attr('width', w)
             .attr('height', h)
