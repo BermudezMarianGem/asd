@@ -191,7 +191,7 @@ function OngoingPage(props)
                             <StyledTableCell align="right">{item.shippingaddress}</StyledTableCell>
                             <StyledTableCell align="right">{item.modeofpayment}</StyledTableCell>
                             <StyledTableCell align="right"><Button variant="contained" sx={classes.ViewButton}>
-                            Pending</Button></StyledTableCell>
+                            In Transit</Button></StyledTableCell>
                     </StyledTableRow>
                 )
             });
@@ -210,7 +210,7 @@ function OngoingPage(props)
             >
                 <Toolbar id="back-to-top-anchor"/>
                 <Typography variant='h3' sx={classes.Header}>
-                Transactions
+                Ongoing Transactions
                 </Typography>
                 <ButtonGroup sx={classes.positionButton}>
                     <Button sx={classes.OngoingButton} onClick={() => navigate('/transactions/ongoing')}>Ongoing</Button>

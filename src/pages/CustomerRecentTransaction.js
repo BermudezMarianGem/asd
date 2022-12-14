@@ -87,7 +87,7 @@ function CustomerRecentPage(props)
 
         axios.get(`http://localhost:8000/api/customer-recent/${user_id}`).then((res) => {
           if (res.status === 200) {
-            setRecent(res.data.reviews);
+            setRecent(res.data.recent);
             setLoading(false);
           }
         });

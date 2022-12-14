@@ -16,7 +16,6 @@ import OngoingPage from './pages/Ongoing';
 import OngoingDetails from './pages/OngoingDetails';
 import EditAccount from './pages/EditAccount';
 import EditPassword from './pages/EditPassword';
-import Review from './pages/Review';
 
 // Landing and Selection for both Account
 import LandingPage from './pages/LandingPage';
@@ -35,7 +34,7 @@ import SearchProduct from './pages/SearchProduct';
 import ProductDetails from './pages/ProductDetail';
 import VegetableDetails from './pages/VegetableDetails';
 import ToReviewPage from './pages/ToReview';
-import RecommendDetails from './pages/RecommendDetails';
+import RecommendedDetails from './pages/RecommendedProduct';
 
 //Admin Account
 import LoginAdmin from './pages/AdminLogin';
@@ -99,10 +98,10 @@ function App()
             <Route path="/customer-recent" element={<CustomerRecentPage/>}/>
             <Route path="/customer-account/" element={<CustomerAccount/>} />
             <Route path="/edit-customeraccount" element={<EditCustomerAccount/>}/>
+            <Route path="/recommended-products" element={<RecommendedDetails/>}/>
 
             <Route path="/homepage" element={<Homepage/>} />
             <Route path="/report" element={<ReportTable/>} />
-            <Route path='/recommend/details' element={<RecommendDetails/>}/>
             <Route path="/account" element={<AccountPage/>} />
             <Route path="/edit-userprofile" element={<EditUserImage/>} />
             <Route path="/accountview" element={<ViewAccount/>} />

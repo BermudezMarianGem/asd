@@ -284,7 +284,7 @@ function VegetableDetails()
                             Price
                         </Typography>
                         <Typography variant='h6' sx={classes.productprice}>
-                            {price}
+                            Php {price}.00
                         </Typography>
                         <Typography variant='h5' sx={classes.SubHeader}>
                             Available Stocks
@@ -298,9 +298,9 @@ function VegetableDetails()
                         </Typography>
                         <Stack direction='row'>
                               <ButtonGroup sx= {classes.stepper} size="small" aria-label="small button group">
-                              <Button sx={classes.StepperPlusButton}  onClick={handleIncrement}>+</Button>
+                              <Button sx={classes.StepperMinusButton}  onClick={handleDecrement}>-</Button>
                                   <Button sx = {classes.number}> {value}</Button>
-                                  <Button sx={classes.StepperMinusButton} onClick={handleDecrement}>-</Button>
+                                  <Button sx={classes.StepperPlusButton} onClick={handleIncrement}>+</Button>
                               </ButtonGroup>
                               <Typography sx={classes.stepperlabel}> 
                                   kg

@@ -161,7 +161,7 @@ function UnverifiedTable(props)
             <Toolbar id="back-to-top-anchor"/>
             <Stack direction="row" justifyContent='space-between'>
               <Typography variant='h2' sx={classes.Welcome}>
-                Admin
+                Unverified Table
               </Typography>
               <Button sx={classes.SubmitButton} onClick={logout} variant="contained">
                 LOGOUT

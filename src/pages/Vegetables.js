@@ -171,11 +171,11 @@ function VegetablePage(props)
                           color="text.primary"
                         >
                           Price: Php {item.price}.00
+                          <br></br>Seller: {item.seller_name}
                         </Typography>
                         } 
                           primaryTypographyProps={{ style: classes.producttitle }}
                           secondaryTypographyProps={{style: classes.productprice }}/>
-                          <Button variant="contained" sx={classes.basketbutton}><BsIcon.BsBasket2Fill size={25}/></Button>
                         </ListItemButton>
                       </Item>
                     </Stack>

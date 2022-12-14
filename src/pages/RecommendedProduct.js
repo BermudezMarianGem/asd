@@ -125,7 +125,7 @@ const classes = {
 }
 
 
-function ProductDetails()
+function RecommendedDetails()
 {
    
   const location = useLocation();
@@ -252,7 +252,7 @@ function ProductDetails()
             >   
                 <Toolbar id="back-to-top-anchor"/>
                 <Stack direction='row'>
-                    <Button onClick={() => navigate('/fruits')}>
+                    <Button onClick={() => navigate('/customer-homepage')}>
                         <ArrowBackIcon sx = {classes.arrowback}/>
                     </Button>
                 </Stack>
@@ -336,4 +336,4 @@ function ProductDetails()
       
     );
 }
-export default ProductDetails;
+export default RecommendedDetails;

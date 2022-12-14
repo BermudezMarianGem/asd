@@ -128,7 +128,9 @@ const Register = () => {
       email: '',
       mobilephone: '',
       password: '',
+      brgy: '',
       verified: 'false',
+
     });
     const [proof, setProof] = useState([]);
     const [errorList, setError] = useState([]);
@@ -153,6 +155,7 @@ const Register = () => {
       formData.append('username', userInput.username);
       formData.append('email', userInput.email);
       formData.append('mobilephone', userInput.mobilephone);
+      formData.append('brgy', userInput.brgy);
       formData.append('password', userInput.password);
       formData.append('verified', userInput.verified);
 
@@ -301,9 +304,27 @@ const Register = () => {
                   autoFocus
                   sx={classes.CustomTextField}
                 >
-               
+                
                 </TextField>
                 <small className='text-danger'>{errorList.email}</small>
+
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="brgy"
+                  label="Address/Barangay/City"
+                  name="brgy"
+                  autoFocus
+                  error={errorList.brgy ? true : false}
+                  helperText={errorList.brgy? true : false}
+                  onChange={handleInput} 
+                  value={userInput.brgy}
+                  sx={classes.CustomTextField}
+                >
+                <small className='text-danger'>{errorList.brgy}</small>
+                </TextField>
+
                 <TextField
                   margin="normal"
                   fullWidth

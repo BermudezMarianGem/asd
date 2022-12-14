@@ -102,15 +102,12 @@ function Checkout() {
   const total_price = state.total;
   const price = state.selectedItems[0].price;
   const shippingfee = state.shippingFee;
-  const conviencefee = state.convience;
-  const grandtotal = (state.shippingFee + state.total + state.convience);
+  const grandtotal = (state.shippingFee + state.total );
   const image = state.selectedItems[0].image;
 
   console.log(price)
   const [checkoutInput, setCheckoutInput] = useState({
     shippingaddress: "",
-    mobilephone: "",
-    modeofpayment: "",
   });
 
   const [error, setError] = useState([]);
@@ -146,14 +143,13 @@ function Checkout() {
       product_id: productId,
       product_qty: productQty,
       shippingfee: shippingfee,
-      conviencefee: conviencefee,
       total_price: grandtotal,
       firstname: customer.firstname,
       middlename: customer.middlename,
       lastname: customer.lastname,
       shippingaddress: checkoutInput.shippingaddress,
-      mobilephone: checkoutInput.mobilephone,
-      modeofpayment: checkoutInput.modeofpayment,
+      mobilephone: customer.mobilephone,
+      modeofpayment: state.modeofpayment,
       user_id: customer.id,
       image: image,
 
@@ -202,51 +198,7 @@ function Checkout() {
       </>
     )
   })
-  //totalCartPrice += data.price * data.fruits_qty;
-  /*
-        var showCheckOutDetails = "";
-        showCheckOutDetails = cart.map( (item, idx) => {
-            totalCartPrice += item.price * item.fruits_qty;
-            return(
-                <div className='col-md-12' key={idx}>
-                    <div className='card'>
-                        <div className='card-body'>
-                            <h6>{item.name}</h6>
-                            <h6>Php: {item.price * item.fruits_qty}.00</h6>
-                        </div>
-                    </div>
-                    <br></br>
-                    <div  className="form-group mb-3">
-                        <div className="material-textfield">
-                            <input placeholder=" " name="address" type="text"/>
-                        <label>Shipping Address</label>
-                        </div>
-                    </div>
-                    <div className="form-group mb-3">
-                        <div className="material-textfield">
-                        <select name="modeofpayment" id="modeofpayment"  className="form-control">
-                            <option value="default" selected hidden>Select mode of payment</option>
-                            <option value = "Cash on Delivery">Cash on Delivery (pay when you receive) </option>
-                                <option value = "Online Payment">Online Payment (Thru Gcash)</option>
-                        </select>
-                        </div>
-                    </div>
-                    <div  className="form-group mb-3">
-                        <div className="material-textfield">
-                            <input placeholder=" " name="voucher" type="text"/>
-                        <label>Enter your voucher code</label>
-                        </div>
-                    </div>
-                    <div className="form-group mb-3">
-                        <p>Order Amount: {totalCartPrice}</p>
-                    </div>
-                        <div className="form-group mb-3">
-                            <p>Subtotal: {totalCartPrice}</p>
-                        </div>
-                    </div>
-            )
-        });*/
-
+  
   return (
     <>
     <CssBaseline />
@@ -287,41 +239,19 @@ function Checkout() {
                   </small>
                   </div>
                  <div className="form-group mb-3">
-                  <select
-                   type="text"
-                  id="modeofpayment"
-                  name="modeofpayment"
-                  onChange={handleInput}
-                  value={checkoutInput.modeofpayment}
-                  className="form-control"
-                  placeholder="Choose mode of payment"
-                  >
-                  <option value="default" selected hidden>
-                  Payment Method
-                  </option>
-                  <option value="Cash on Delivery">
-                      Cash on Delivery (pay when you order)
-                  </option>
-                  </select>
-                  <small className="text-danger">
-                     {error.modeofpayment}
-                  </small>
+                 <p>Mode of Payment</p>
+                  {state.modeofpayment}
                   </div>
                   <div className="form-group mb-3">
-                  <input
-                  type="text"
-                  name="mobilephone"
-                  onChange={handleInput}
-                  value={checkoutInput.mobilephone}
-                  className="form-control"
-                  placeholder="Mobile Phone"
-                  />
+                  <div className="form-group mb-3">
+                  <p>Mobile Phone</p>
+                  {customer.mobilephone}
+                  </div>
                   <small className="text-danger">
                     {error.mobilephone}
                   </small>
                   </div>
                   <p>Shipping Fee: Php {shippingfee}.00</p>
-                  <p>Convience Fee: Php {conviencefee}.00</p>
                   <p>Subtotal: Php {total_price}.00</p>
                   <p>Total (including shipping fee): Php {grandtotal}.00</p>
                   <hr />

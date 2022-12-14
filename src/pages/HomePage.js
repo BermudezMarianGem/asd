@@ -11,10 +11,9 @@ import { Box,
     ListItemText,
     Fab,} from '@mui/material';
 import ResponsiveDrawer from '../components/Drawer';
-import {useNavigate} from 'react-router-dom';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ScrollTop from '../components/ScrollToTop';
-import LINECHART from './Visualization';
+import { BarChart, BarSeries } from 'reaviz';
 
 //ScreenSize
 const drawerWidth = 240;
@@ -90,12 +89,20 @@ const Item = styled(Paper)(({ theme }) => ({
 const Homepage = (props) =>
 {
   const [sold, setSold] = useState([]);
+  const [visual, setVisual] = useState([]);
   let user = JSON.parse(localStorage.getItem('user-info'))
   localStorage.setItem('user', JSON.stringify(user))
 
   const user_id = user.id;
 
   useEffect(() => {
+
+    axios.get(`http://localhost:8000/api/date/${user_id}`).then((res) => {
+      if (res.status === 200) {
+        setVisual(res.data.data);
+      }
+    });
+
       axios.get(`http://localhost:8000/api/recent/${user_id}`).then((res) => {
         if (res.status === 200) {
           setSold(res.data.sellerdelivered);
@@ -103,6 +110,11 @@ const Homepage = (props) =>
       });
 
     }, [user_id]);
+
+    const barChartData = [
+      {key: "November", data:visual[0] },
+      {key: "December", data:visual[1] },
+    ];
 
     console.log(sold)
 
@@ -122,9 +134,6 @@ const Homepage = (props) =>
         </Box>
         )
       })
-
-
-    const navigate = useNavigate();
 
     return(
       <>
@@ -147,7 +156,22 @@ const Homepage = (props) =>
               </Typography>
               <Paper elevation={4} sx={{backgroundColor: '#FFFF', borderRadius: 2}}>
               <Box height="75vh" variant="outlined">
-                <LINECHART/>
+              <div class="container" style = {{ alignSelf: 'center', marginTop: '30px' }}>
+                <div class="row justify-content-between">
+                    <div class="col-4" style = {{ alignSelf: 'center', marginTop: '80px' }}>
+                        <BarChart 
+                        width={800} 
+                        height={500} 
+                        data={barChartData} 
+                        series = {
+                            <BarSeries
+                            colorScheme='green'
+                            />
+                        }
+                        />
+                    </div>
+                </div>
+            </div>
               </Box>
               </Paper>
             </Box>

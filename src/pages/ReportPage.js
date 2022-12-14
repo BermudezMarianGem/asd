@@ -202,7 +202,7 @@ function ReportTable(props) {
               </Grid>
               
               <Typography variant='h4' sx={classes.Welcome}>
-                  Total Profit: {total}
+                  Sales: Php {total}.00
               </Typography>
         </Box>
           <ScrollTop {...props}>

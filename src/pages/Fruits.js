@@ -174,7 +174,6 @@ function FruitPages(props)
                         } 
                           primaryTypographyProps={{ style: classes.producttitle }}
                           secondaryTypographyProps={{style: classes.productprice }}/>
-                          <Button variant="contained" sx={classes.basketbutton}><BsIcon.BsBasket2Fill size={25}/></Button>
                         </ListItemButton>
                       </Item>
                     </Stack>

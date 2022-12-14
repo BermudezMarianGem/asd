@@ -93,7 +93,7 @@ const classes = {
   }
 
 const SHIPPING_FEE = 50;
-const convience_fee = 5;
+const MODEOFPAYMENT = "Cash on Delivery";
 
 function Basket() {
   const navigate = useNavigate();
@@ -193,7 +193,7 @@ function Basket() {
 
   const handleCheckout = () => {
     console.log(cart);
-    navigate(`/checkout/${customer.id}`, { state:{ shippingFee: SHIPPING_FEE, convience: convience_fee, selectedItems, total }});
+    navigate(`/checkout/${customer.id}`, { state:{ shippingFee: SHIPPING_FEE, selectedItems, total, modeofpayment: MODEOFPAYMENT }});
   };
 
   const getBasketContent = () => {
@@ -226,16 +226,16 @@ function Basket() {
                 >
                   <Typography>{item.name}</Typography>
                   <Typography sx={{ fontWeight: "bold" }}>
-                    Php {item.price * item.fruits_qty}
+                    Php {item.price * item.fruits_qty}.00
                   </Typography>
                 </Box>
               </Box>
               <Box>
                 <Stack direction='row'>
                     <ButtonGroup sx= {classes.stepper} size="small" aria-label="small button group">
-                        <Button sx={classes.StepperPlusButton}  onClick={() => handleIncrement(item.id)}>+</Button>
-                        <Button sx = {classes.number}> {item.fruits_qty}</Button>
                         <Button sx={classes.StepperMinusButton} onClick={() => handleDecrement(item.id)}>-</Button>
+                        <Button sx = {classes.number}> {item.fruits_qty}</Button>
+                        <Button sx={classes.StepperPlusButton}  onClick={() => handleIncrement(item.id)}>+</Button>
                     </ButtonGroup>
                     <Typography sx={classes.stepperlabel}> 
                       kg
@@ -290,9 +290,9 @@ function Basket() {
           >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Typography sx={{ fontWeight: "bold" }}>
-                Subtotal: Php {total}
+                Subtotal: Php {total}.00
               </Typography>
-              <Typography>Shipping Fee: Php {SHIPPING_FEE}</Typography>
+              <Typography>Shipping Fee: Php {SHIPPING_FEE}.00</Typography>
             </Box>
             <Button sx={{ height: 64 }} variant="contained" onClick={handleCheckout}>
               Checkout

@@ -87,6 +87,7 @@ const RegisterCustomer = () => {
     lastname: '',
     username: '',
     email: '',
+    mobilephone: '',
     password: '',
   });
     
@@ -109,15 +110,8 @@ const RegisterCustomer = () => {
     formData.append('username', userInput.username);
     formData.append('email', userInput.email);
     formData.append('password', userInput.password);
+    formData.append('mobilephone', userInput.mobilephone);
 
-    /*const info = {
-      firstname: userInput.firstname,
-      middlename: userInput.middlename,
-      lastname: userInput.lastname,
-      username: userInput.username,
-      email: userInput.email,
-      password: userInput.password,
-    }*/
 
     axios.post(`http://localhost:8000/api/registerCustomer`,formData,
       {headers: { "Content-Type": "multipart/form-data" },})
@@ -248,6 +242,22 @@ const RegisterCustomer = () => {
                 >
                 </TextField>
                 <small className='text-danger'>{errorList.email}</small>
+
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  id="mobilephone"
+                  label="Phone Number"
+                  name="mobilephone"
+                  autoFocus
+                  error={errorList.mobilephone ? true : false}
+                  helperText={errorList.mobilephone? true : false}
+                  onChange={handleInput} 
+                  value={userInput.mobilephone}
+                  sx={classes.CustomTextField}
+                >
+                </TextField>
+                <small className='text-danger'>{errorList.mobilephone}</small>
                 <TextField
                   sx={classes.CustomTextField}
                   margin="normal"

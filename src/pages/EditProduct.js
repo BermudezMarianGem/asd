@@ -160,7 +160,7 @@ const EditProduct = ({productdata}) => {
         
         const product_id = state.id;
         const data = {
-            userId: user.id,
+            user_id: user.id,
             category: productInput.category || state.category,
             name: productInput.name || state.name,
             description: productInput.description || state.description,

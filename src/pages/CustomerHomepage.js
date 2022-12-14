@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
-import NavbarCustomer from './NavbarCustomer';
 import { Box, CssBaseline, Button, 
     GlobalStyles, IconButton, Toolbar, Typography,
-    Paper, Fab, InputBase,styled, Grid, ListItemIcon, 
+    Paper, Fab, styled, Grid, ListItemIcon, 
     List, Stack, ListItemButton, ListItemText,
 } from "@mui/material";
 import CustomerResponsiveAppBar from '../components/CustomerResponsiveAppBar';
@@ -15,7 +13,6 @@ import { Image } from 'mui-image';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ScrollTop from '../components/ScrollToTop';
 import axios from 'axios';
-import * as BsIcon from "react-icons/bs";
   
   
   //Styles
@@ -146,8 +143,9 @@ const CustomerHomepage = (props) =>
         <Box sx={{ width: '100%', marginBottom: 1 }}>
               <Stack direction={{ xs: "column-reverse"}}  spacing={10}>
                   <Item key={idx}>
-                      <ListItemButton onClick={() => navigate(`/recommend/details`,{state:item})} alignItems="flex-start">
-                        <ListItemText primary={item.order_name} secondary={<Typography
+                  <ListItemButton onClick={() => navigate(`/vegetables/${item.name}`,{state:item})} alignItems="flex-start">
+                      <ListItemButton alignItems="flex-start">
+                        <ListItemText primary={item.name} secondary={<Typography
                           sx={{ display: 'inline',
                           fontFamily: 'Poppins',
                           fontWeight: 'bold',
@@ -156,11 +154,12 @@ const CustomerHomepage = (props) =>
                           variant="body2"
                           color="text.primary"
                         >
-                          Price: Php {item.order_price}.00
+                          Price: Php {item.price}.00
                         </Typography>
                         } 
                         primaryTypographyProps={{ style: classes.producttitle }}
                         secondaryTypographyProps={{style: classes.productprice }}/>
+                    </ListItemButton>
                     </ListItemButton>
                   </Item>
               </Stack>

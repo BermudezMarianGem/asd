@@ -48,13 +48,14 @@ const classes = {
 function SellerSearch() {
 
     const [table, setTable] = useState(null);
-    let customer = JSON.parse(localStorage.getItem('user-info'))
-    localStorage.setItem('customer', JSON.stringify(customer))
+    let user = JSON.parse(localStorage.getItem('user-info'))
+    localStorage.setItem('user', JSON.stringify(user))
 
+    const id = user.id
     
     async function search(key) {
         console.warn(key)
-        let result = await fetch("http://localhost:8000/api/search/"+key);
+        let result = await fetch(`http://localhost:8000/api/search-product/${id}/${key}`);
         console.log(result);
         result = await result.json();
  
